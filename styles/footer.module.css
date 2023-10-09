@@ -1,0 +1,55 @@
+.wrapper {
+    display: flex;
+    position: relative;
+    z-index: 2;
+    border:1px solid #00000005;
+    color:#ffffff;
+    margin-bottom: 0;
+    margin-top: -30px;
+    padding-left:10%;
+    padding-right:10%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    height:50px;
+}
+
+.left {
+    display:inline-flex;
+}
+
+.right {
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+    position: relative;
+}
+
+.copyright {
+    font-family: hamlin;
+    font-size: 8px;
+    opacity:.5;
+    width:100%;
+}
+
+.h1 {
+    font-family: righteous;
+    letter-spacing: 4px;
+    color:#ffffff;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 100;
+}
+
+.icon {
+    width:25px;
+    margin: 5px;
+    text-decoration: none;
+    color:#ffffff;
+}
+
+.icon:hover {
+    opacity: .85;
+    cursor: pointer;
+}

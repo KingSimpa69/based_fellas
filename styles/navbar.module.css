@@ -1,0 +1,61 @@
+.navbarwrap{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    width:100vw;
+}
+
+.navbarwrap div{
+    width:420px;
+    display:flex;
+    justify-content: center;
+    padding:20px;
+}
+
+.navbarwrap h1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: righteous;
+    letter-spacing: 4px;
+    color:#ffffff;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.imagecont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 32px;
+    height: 100%;
+}
+
+.purpbutton{
+    transition: all .1s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ccc9ff;
+    padding:15px 40px;
+    font-family: righteous;
+    color:#282b30;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 8px 8px 0 0 hsla(0,0%,100%,.03);
+}
+
+
+.purpbutton:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.brand:hover{
+    cursor: default;
+}

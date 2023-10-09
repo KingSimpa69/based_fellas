@@ -1,0 +1,41 @@
+.wrapper {
+
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:5px;
+    padding-right:5px;
+    border-bottom:#ffffff12 1px solid;
+    position: absolute;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    left:0;
+    right:0;
+    top:0;
+    color:#c6c6c6;
+    font-family: moon;
+}
+
+.connected {
+    background: #629754aa;
+}
+
+.disconnected {
+    background: #eaac007c;
+}
+
+.connectButton:hover {
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.addy {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.addy:hover {
+    opacity:.80;
+    cursor: pointer;
+}
