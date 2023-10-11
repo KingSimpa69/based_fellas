@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "@/styles/index.module.css";
 
 const FellaStrip = ({ randomImages }) => {
-  const [css0, setCss0] = useState("hidden");
+  const [css0, setCss0] = useState("none");
   const { width } = useWindowSize();
 
   const setFellas = () => {

@@ -52,7 +52,6 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width:100vw;
   height:100%;
   margin: 0;
   padding: 0;
@@ -60,6 +59,10 @@ body{
 
 .hidden{
   display: none !important;
+}
+
+.none{
+  visibility: hidden !important;
 }
 
 hr {

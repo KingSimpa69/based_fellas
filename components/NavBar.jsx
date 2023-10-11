@@ -6,7 +6,7 @@ export const NavBar = ({toggleMenu, menu}) => {
     <div className={styles.navbarwrap}>
     <div className={styles.brand}>
         <div className={styles.imagecont}>
-            <Image alt="logo" width={32} height={24} src={"/images/1.png"}/>
+            <Image alt="logo" width={32} height={32} src={"/images/1.png"}/>
         </div>
         <h1>Based Fellas</h1>
     </div>

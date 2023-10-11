@@ -22,7 +22,7 @@ const head = [
 "Bucket Hat",
 "Bucket Head",
 "Top Hat",
-"Fisherman's Hat",
+"Fishermans Hat",
 "Santa Hat",
 "Ice Cream Head",
 "Tomato Head",
@@ -40,13 +40,13 @@ const head = [
 "Halo",
 "Water Hair",
 "Glitch Helmet",
-"King's Crown",
+"Kings Crown",
 "Demon Horns",
 "Dino Head",
 "Dragon Head",
 "Lion Head",
 "Elemental Hair",
-"God's Crown"
+"Gods Crown"
 ]
 
 export default head

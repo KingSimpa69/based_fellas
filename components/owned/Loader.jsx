@@ -50,7 +50,6 @@ const Loader = ({ address }) => {
   return (
     <div className={styles.loader}>
       {owned.map((id) => (
-        
         <div key={id} className={styles.fellacont}>
           <div className={styles.fellaoverlay}>
             <h1>{id}</h1>

@@ -22,6 +22,8 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1}) => {
         await delay(900)
         setGlobalCSS1("")
         setGlobalCSS0("animate__animated animate__fadeIn animate__faster");
+      } else {
+        toggleMenu(!menu)
       }
     }
 
@@ -43,7 +45,7 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1}) => {
 
 return (
     <div className={`${css0} ${styles.wrapper}`}>
-      <Web3 />
+      <Web3 toggleMenu={toggleMenu} />
         <p onClick={()=>{changePage("/")}} className={router.pathname!=="/"?styles.item:`${styles.item} ${styles.active}`}>Home</p>
         <p onClick={()=>{changePage("/collection")}} className={router.pathname!=="/collection"?styles.item:`${styles.item} ${styles.active}`}>Collection</p>
         <p onClick={()=>{changePage("/owned")}} className={router.pathname!=="/owned"?styles.item:`${styles.item} ${styles.active}`}>Owned</p>

@@ -22,8 +22,8 @@ const nft = async (req, res) => {
     if (mouth) filter.push({ 'attributes.trait_type': 'Mouth', 'attributes.value': mouth });
     if (necklace) filter.push({ 'attributes.trait_type': 'Necklace', 'attributes.value': necklace });
     if (outfit) filter.push({ 'attributes.trait_type': 'Outfit', 'attributes.value': outfit });
-    if (type) filter.push({ 'attributes.trait_type': 'Type', 'attributes.value': type });
-
+    if (type) filter.push({ 'attributes.trait_type': 'Type', 'attributes.value': type });    
+  
     let query = {};
 
     if (filter.length === 1) {

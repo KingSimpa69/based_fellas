@@ -40,6 +40,17 @@ export default function Collection() {
     type,
   };
 
+  const setFilters = {
+    setId,
+    setEarrings,
+    setEyes,
+    setHead,
+    setMouth,
+    setNecklace,
+    setOutfit,
+    setType
+  }
+
   return (
     <div className={styles.wrapper}>
     <FellaModal activeMeta={activeMeta} id={active} open={modal} setOpen={modalOpen} />
@@ -55,9 +66,10 @@ export default function Collection() {
       setMouth={setMouth}
       setNecklace={setNecklace}
       setOutfit={setOutfit}
-      setType={setType} />
+      setType={setType} 
+      filters={filterProps}/>
     <HorizontalRule />
-    <Loader setActiveMeta={setActiveMeta} toggleModal={toggleModal} filter={filterProps} />
+    <Loader setActiveMeta={setActiveMeta} toggleModal={toggleModal} filter={filterProps} set={setFilters} />
     </div>
   )
 }

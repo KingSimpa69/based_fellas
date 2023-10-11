@@ -11,7 +11,7 @@ const outfit = [
     "Vest",
     "Multi Color Jumper",
     "Trench Coat",
-    "Traveler's Shirt",
+    "Travelers Shirt",
     "Tracksuit Fit",
     "Punk Jacket",
     "EF Logo Sweater",

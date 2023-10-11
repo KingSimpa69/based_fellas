@@ -247,6 +247,10 @@
     color: #ffffff4c;
 }
 
+.closemsg:hover {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
     .fella {
         margin-top:10px;

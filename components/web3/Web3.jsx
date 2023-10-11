@@ -1,9 +1,10 @@
 import { useAccount, useDisconnect, useNetwork  } from 'wagmi'
+import { useEffect } from 'react'
 import styles from "../../styles/web3.module.css"
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { shortenEthAddy } from "@/functions/shortenEthAddy"
 
-const Web3 = () => {
+const Web3 = ({toggleMenu}) => {
 
     const { open } = useWeb3Modal()
     const { isConnected, address } = useAccount()
@@ -19,6 +20,10 @@ const Web3 = () => {
             return
         }
     }
+
+    useEffect(()=>{
+        toggleMenu(false)
+    },[isConnected])
 
     return(
         <div className={`${styles.wrapper} ${isConnected === false ? styles.disconnected :

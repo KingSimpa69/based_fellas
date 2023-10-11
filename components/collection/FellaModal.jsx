@@ -30,7 +30,7 @@ const FellaModal = ({ id, open, setOpen, activeMeta }) => {
       }}
       className={`${css0}`}
     >
-        <p className={styles.closemsg}>Click outside to close</p>
+        <p onClick={()=>{setOpen(false);}} className={styles.closemsg}>Click outside to close</p>
       <div className={`${styles.modalcont} ${css1}`} onClick={(e)=>e.stopPropagation()}>
         <h1 className={`${styles.h1} ${styles.modalheader}`}>{id}</h1>
         <div className={styles.modalfella}>
