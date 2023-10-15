@@ -22,9 +22,8 @@
 html{
   background: #212429;
   display:flex;
-  flex: 1 0;
   flex-direction: row;
-  width:100vw !important;
+  width:100vw;
   overflow-x: hidden;
   -ms-overflow-style: none; 
   scrollbar-width: none;
@@ -51,7 +50,7 @@ body{
   justify-content: center;
   align-items: center;
   height:100%;
-  width:100%;
+  width:100vw;
   margin: 0;
   padding: 0;
 }
