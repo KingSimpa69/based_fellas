@@ -28,14 +28,14 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1}) => {
     }
 
       const closeMenu = async () => {
-        setCss0("animate__animated animate__fadeOutTopRight")
+        setCss0("animate__animated animate__fadeOut animate__slower")
         await delay(420)
         setCss0("hidden")
       }      
       
       useEffect(()=>{
         if(initalRender === false){
-            menu === true ? setCss0("animate__animated animate__fadeInTopRight") : closeMenu()
+            menu === true ? setCss0("animate__animated animate__fadeIn animate__faster") : closeMenu()
         } else {
             setInitialRender(!initalRender)
         }

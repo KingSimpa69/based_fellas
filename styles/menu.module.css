@@ -12,6 +12,7 @@
     align-items: center;
     backdrop-filter: blur(15px);
     overflow: hidden;
+    --animate-duration: 0.5s;
 }
 
 .item {
