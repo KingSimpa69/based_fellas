@@ -7,7 +7,7 @@
 }
 
 .fellas{
-    width:100vw;
+    width:100%;
     height: calc(90vw / 15);
     box-sizing: border-box;
     -moz-box-sizing: border-box;
