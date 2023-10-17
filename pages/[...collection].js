@@ -42,7 +42,6 @@ export default function Collection() {
     if(router.query.collection){
       if(router.query.collection[1] !== undefined){
         toggleModal(parseInt(router.query.collection[1]))
-        modalOpen(true)
       }
     }
   }, [router])
