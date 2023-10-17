@@ -34,10 +34,14 @@ export default function Collection() {
   }
 
   useEffect(() => {
+    getMeta(active)
+  }, [active])
+  
+
+  useEffect(() => {
     if(router.query.collection){
       if(router.query.collection[1] !== undefined){
-        getMeta(router.query.collection[1])
-        setActive(parseInt(router.query.collection[1]))
+        toggleModal(parseInt(router.query.collection[1]))
         modalOpen(true)
       }
     }
