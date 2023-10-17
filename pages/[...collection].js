@@ -34,24 +34,28 @@ export default function Collection() {
     setActiveMeta(await data.nfts[0].attributes)
   }
 
+  const checkForDynamic = async () => {
+    await delay(100)
+    if(router.query.collection){
+      if(router.query.collection[1] !== undefined){
+        toggleModal(parseInt(router.query.collection[1]))
+      }
+    }
+  }
+
   useEffect(() => {
     getMeta(active)
   }, [active])
   
 
   useEffect(() => {
-    if(router.query.collection){
-      if(router.query.collection[1] !== undefined){
-        toggleModal(parseInt(router.query.collection[1]))
-      }
-    }
+    checkForDynamic()
   }, [router])
   
 
-  const toggleModal = async (id) => {
-    modalOpen(!modal)
-    await delay(100)
+  const toggleModal = (id) => {
     setActive(id)
+    modalOpen(!modal)
   }
 
   const filterProps = {
