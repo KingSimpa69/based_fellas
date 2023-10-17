@@ -5,6 +5,7 @@ import Filter from '@/components/collection/Filter';
 import HorizontalRule from '@/components/HorizontalRule';
 import FellaModal from '@/components/collection/FellaModal';
 import { useRouter } from 'next/router';
+import delay from '@/functions/delay';
 
 const Loader = dynamic(
   () => import('@/components/collection/Loader'),
@@ -47,9 +48,10 @@ export default function Collection() {
   }, [router])
   
 
-  const toggleModal = (id) => {
-    setActive(id)
+  const toggleModal = async (id) => {
     modalOpen(!modal)
+    await delay(100)
+    setActive(id)
   }
 
   const filterProps = {
