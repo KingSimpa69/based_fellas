@@ -7,7 +7,7 @@ const mouth = [
     "Smirk",
     "Sad",
     "Relaxed",
-    "Tongue Out",
+    "Toung Out",
     "Cigarette",
     "Donut",
     "Cigar",

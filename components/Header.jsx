@@ -8,7 +8,9 @@ const Header = () => {
     return (
           <Head>
             <title>
-              {`Based Fellas - ${router.pathname === "/" ? "A 10k Generative PFP NFT Art Collection on Base Layer 2" : router.route.slice(1,2).toUpperCase() + router.route.slice(2)}`}
+              {`Based Fellas - ${router.pathname === "/" ? "A 10k Generative PFP NFT Art Collection on Base Layer 2" :
+              router.pathname === "/[...collection]" ? "Collection" :
+              router.route.slice(1,2).toUpperCase() + router.route.slice(2)}`}
             </title>
             <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
             <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
