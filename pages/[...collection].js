@@ -38,25 +38,21 @@ export default function Collection() {
     await delay(100)
     if(router.query.collection){
       if(router.query.collection[1] !== undefined){
-        toggleModal(parseInt(router.query.collection[1]))
+        await getMeta(active)
+        await delay(100)
+        await toggleModal(parseInt(router.query.collection[1]))
       }
     }
   }
 
-  useEffect(() => {
-    getMeta(active)
-  }, [active])
-  
+  const toggleModal = async (id) => {
+    setActive(id)
+    modalOpen(!modal)
+  }
 
   useEffect(() => {
     checkForDynamic()
   }, [router])
-  
-
-  const toggleModal = (id) => {
-    setActive(id)
-    modalOpen(!modal)
-  }
 
   const filterProps = {
     id,

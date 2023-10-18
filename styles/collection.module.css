@@ -128,8 +128,6 @@
     position:fixed;
     top:0;
     bottom:0;
-    left:0;
-    right:0;
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -137,13 +135,15 @@
     z-index: 696969;
     background: #000000d8;
     backdrop-filter: blur(15px);
+    overflow-y: hidden;
 }
 
 .modalcont {
     position: relative;
     background-color: #1c1c1c;
     width:420px;
-    max-width: 98%;
+    min-width: 50vw;
+    max-width: 98vw;
     border: 3px solid #ccc9ff;
     border-radius: 10px;
     z-index: 4206970;
