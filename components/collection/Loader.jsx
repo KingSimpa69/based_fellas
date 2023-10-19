@@ -104,7 +104,7 @@ const Loader = ({ filter, toggleModal, setActiveMeta, set }) => {
           <Fella nfts={nfts} nft={nft} index={index} />
         </div>
       ))}
-      {loading && <p className={styles.p}>Loading...</p>}
+      {/*loading && <p className={styles.p}>Loading...</p>*/}
     </div>
   );
 };

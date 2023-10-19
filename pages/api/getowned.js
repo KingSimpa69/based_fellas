@@ -1,7 +1,7 @@
 import connectDb from '../../functions/connectDB'; 
 import { ethers } from 'ethers';
 
-export default async (req, res) => {
+const getOwned = async (req, res) => {
     const { query: { addy } } = req;
 
     if (!ethers.isAddress(addy)) {
@@ -22,3 +22,5 @@ export default async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+
+  export default getOwned

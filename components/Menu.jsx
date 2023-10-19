@@ -12,7 +12,7 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1}) => {
     const router = useRouter()
 
     const changePage = async (route) => {
-      if(route!==router.pathname){
+      if(route!==router.asPath){
         setGlobalCSS0("animate__animated animate__fadeOut animate__faster");
         await delay(200)
         toggleMenu(!menu)
@@ -46,9 +46,9 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1}) => {
 return (
     <div className={`${css0} ${styles.wrapper}`}>
       <Web3 toggleMenu={toggleMenu} />
-        <p onClick={()=>{changePage("/")}} className={router.pathname!=="/"?styles.item:`${styles.item} ${styles.active}`}>Home</p>
-        <p onClick={()=>{changePage("/collection")}} className={router.pathname!=="/collection"?styles.item:`${styles.item} ${styles.active}`}>Collection</p>
-        <p onClick={()=>{changePage("/owned")}} className={router.pathname!=="/owned"?styles.item:`${styles.item} ${styles.active}`}>Owned</p>
+        <p onClick={()=>{changePage("/")}} className={router.asPath!=="/"?styles.item:`${styles.item} ${styles.active}`}>Home</p>
+        <p onClick={()=>{changePage("/collection")}} className={router.asPath!=="/collection"?styles.item:`${styles.item} ${styles.active}`}>Collection</p>
+        <p onClick={()=>{changePage("/owned")}} className={router.asPath!=="/owned"?styles.item:`${styles.item} ${styles.active}`}>Owned</p>
     </div>
 )
 }

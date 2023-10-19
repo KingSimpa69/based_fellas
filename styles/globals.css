@@ -24,7 +24,6 @@ html{
   display:flex;
   flex-direction: row;
   width:100vw;
-  overflow-x: hidden;
   -ms-overflow-style: none; 
   scrollbar-width: none;
 }
