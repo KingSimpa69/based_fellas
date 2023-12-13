@@ -55,7 +55,7 @@ const Holders = ({alert}) => {
     return(
         <>
         {loading ? <><HorizontalRule /><p className={styles.loading}>Loading...</p></> :
-        owned.length !== 0 ? <Owned addy={addy} ownedArray={owned}/> : <p>This address doesn't own any fellas!</p>}
+        owned.length !== 0 ? <Owned addy={addy} ownedArray={owned}/> : <p>This address doesn&quot;t own any fellas!</p>}
         </>
     )
 }
