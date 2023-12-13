@@ -8,11 +8,13 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1}) => {
 
     const [css0,setCss0] = useState("hidden")
     const [initalRender,setInitialRender] = useState(true);
-
     const router = useRouter()
+    const pathRegex = /\/([^\/]+)\//;
+    const pathMatch = router.asPath.match(pathRegex);
+    const currentPath = pathMatch ? pathMatch[1] : null;
 
     const changePage = async (route) => {
-      if(route!==router.asPath){
+      if(route!==router.asPath && "/"+currentPath!==route){
         setGlobalCSS0("animate__animated animate__fadeOut animate__faster");
         await delay(200)
         toggleMenu(!menu)
@@ -41,14 +43,15 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1}) => {
         }
       },[menu])
 
-      
 
 return (
     <div className={`${css0} ${styles.wrapper}`}>
       <Web3 toggleMenu={toggleMenu} />
         <p onClick={()=>{changePage("/")}} className={router.asPath!=="/"?styles.item:`${styles.item} ${styles.active}`}>Home</p>
-        <p onClick={()=>{changePage("/collection")}} className={router.asPath!=="/collection"?styles.item:`${styles.item} ${styles.active}`}>Collection</p>
+        <p onClick={()=>{changePage("/collection")}} className={router.asPath!=="/collection"&&currentPath!=="collection"?styles.item:`${styles.item} ${styles.active}`}>Collection</p>
         <p onClick={()=>{changePage("/owned")}} className={router.asPath!=="/owned"?styles.item:`${styles.item} ${styles.active}`}>Owned</p>
+        <p onClick={()=>{changePage("/holders")}} className={router.asPath!=="/holders"&&currentPath!=="holders"?styles.item:`${styles.item} ${styles.active}`}>Holders</p>
+        {/*<p onClick={()=>{changePage("/chests")}} className={router.asPath!=="/chests"&&currentPath!=="chests"?styles.item:`${styles.item} ${styles.active}`}>Chests</p>*/}
     </div>
 )
 }

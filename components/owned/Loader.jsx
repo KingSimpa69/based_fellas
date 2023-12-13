@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "../../styles/owned.module.css";
 import Image from "next/image";
 import { ethers } from "ethers";
-import { useEthersProvider } from '../../hooks/ethers'
-import ABI from "../../functions/abi.json"
+import { useEthersProvider } from '@/hooks/ethers'
+import ABI from "@/functions/abi.json"
 
 const Loader = ({ address }) => {
 
@@ -22,7 +22,7 @@ const Loader = ({ address }) => {
           const verifiedOwned = [];
       
           try {
-            const contract = new ethers.Contract(contractAddress, ABI.abi, provider);
+            const contract = new ethers.Contract(contractAddress, ABI.fellas, provider);
             setLoading(true);
             for (const id of body) {
               await new Promise(resolve => setTimeout(resolve, 200));

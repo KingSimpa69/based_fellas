@@ -3,7 +3,9 @@ import { WagmiConfig } from 'wagmi';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
 import { configureChains } from 'wagmi'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { publicProvider } from 'wagmi/providers/public'
 import { base } from 'wagmi/chains'
+import {baseSepolia} from '@/base-sepolia'
 
 const projectId = '828af0d9067eea0e2fb7773e64ade3a1'
 
@@ -15,8 +17,8 @@ const metadata = {
 }
 
 const { chains } = configureChains(
-  [base],
-  [alchemyProvider({ apiKey: 'XbT3mXfmaGqexeuRqN6W8xAoLGwgs7Is' })],
+  [base,baseSepolia],
+  [alchemyProvider({ apiKey: 'XbT3mXfmaGqexeuRqN6W8xAoLGwgs7Is' }),publicProvider()],
 )
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
 

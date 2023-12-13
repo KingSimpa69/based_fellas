@@ -4,12 +4,13 @@ import { useRouter } from 'next/router';
 const Header = () => {
 
   const router = useRouter()
-  console.log
+  const pathRegex = /\/([^\/]+)\//;
+
     return (
           <Head>
             <title>
               {`Based Fellas - ${router.pathname === "/" ? "A 10k Generative PFP NFT Art Collection on Base Layer 2" :
-              router.pathname === "/[...collection]" ? "Collection" :
+              router.pathname.match(pathRegex) ? router.pathname.match(pathRegex)[1].slice(0,1).toUpperCase() + router.pathname.match(pathRegex)[1].slice(1) :
               router.route.slice(1,2).toUpperCase() + router.route.slice(2)}`}
             </title>
             <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>

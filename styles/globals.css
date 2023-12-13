@@ -9,6 +9,11 @@
 }
 
 @font-face {
+  font-family: coresans;
+  src: url(../fonts/coresans.ttf);
+}
+
+@font-face {
   font-family: moon;
   src: url(../fonts/moon.otf);
 }
@@ -18,6 +23,10 @@
   src: url(../fonts/hamlin.ttf);
 }
 
+@font-face {
+  font-family: mana;
+  src: url(../fonts/mana.ttf);
+}
 
 html{
   background: #212429;
@@ -33,8 +42,8 @@ html::-webkit-scrollbar {
 }
 
 html:before {
-  opacity: .05;
-  background:  url("../public/images/galaxy.gif") ;
+  opacity: .15;
+  background: center url("../public/images/loot_room.png") ;
   background-size: cover;
   background-repeat: no-repeat;
   content: "";

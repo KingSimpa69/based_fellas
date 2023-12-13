@@ -1,0 +1,132 @@
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+.wrapper {
+    position:relative;
+    z-index: 10;
+    font-family: 'Segoe UI Emoji', 'Segoe UI', 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.h1 {
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    margin-top:-15px;
+    margin-bottom:-5px;
+    color: #e3e3e3;
+    font-family: righteous;
+}
+
+.table {
+    width:420px;
+    background-color: #21242905;
+    backdrop-filter: blur(5px);
+    border-left: 1px solid #ffffff4e;
+    border-right: 1px solid #ffffff4e;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-transform: uppercase;
+    color:#ccc9ffd1;
+    border-bottom: 1px solid #ffffff4e;
+    border-top: 1px solid #ffffff4e;
+    padding: 8px;
+    text-align: center;
+}
+
+.table tbody tr:hover {
+    background-color: #ffffff06;
+  }
+
+  .table tbody td:nth-child(2):hover {
+    opacity:0.8;
+    color:#ccc9ff;
+    cursor: pointer;
+  }
+  
+
+.table td {
+    color:#ffffffa1;
+    border-bottom: 1px solid #ffffff4e;
+    padding: 8px;
+    text-align: center;
+}
+
+.pagination {
+    display:flex;
+    width:100%;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.pagination p{
+    font-size: 20px;
+    margin: 0;
+    -webkit-user-select: none;
+    -ms-user-select: none; 
+    user-select: none; 
+}
+
+.pagination p:hover{
+    color:#ffffff;
+    opacity:1;
+    cursor: pointer;
+    margin: 0;
+}
+
+.table th:nth-child(n) {
+    border-right: 1px solid #ffffff4e;
+}
+
+.table td:nth-child(n) {
+    border-right: 1px solid #ffffff4e;
+}
+
+.walletLink a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.fella {
+    position: relative;
+    z-index: 10;
+    opacity: 1 !important;
+}
+
+.fellawrapper {
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 95%;
+    height:100%;
+    flex-wrap: wrap;
+}
+
+.h2 {
+    -webkit-user-select: none;
+    -ms-user-select: none; 
+    user-select: none; 
+    color:#ffffff;
+    font-size: 16px;
+    text-align: center;
+    font-family: kanit;
+    position: relative;
+    z-index: 10;
+}
+
+.h2:hover {
+    cursor: pointer;
+}
+
+.loading {
+    text-align: center;
+    color: #ffffff;
+}

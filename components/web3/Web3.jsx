@@ -27,12 +27,13 @@ const Web3 = ({toggleMenu}) => {
 
     return(
         <div className={`${styles.wrapper} ${isConnected === false ? styles.disconnected :
-            chain.id !== 8453 ? styles.disconnected :
-             styles.connected }`}>
+            chain.id === 8453 || 84532 ? styles.connected :
+             styles.disconnected }`}>
             <div>
                 {isConnected === false ? "Disconnected" :
-                 chain.id !== 8453 ? "Wrong Chain" : 
-                 "Connected"}
+                 chain.id === 8453 ? "BASE" : 
+                 chain.id === 84532 ? "BASE SEPOLIA":
+                 "Unknown Network"}
             </div>
             <div onClick={()=>open({ view: 'Account' })} className={isConnected === false ? "hidden" : styles.addy}>
                 {address !== undefined ? shortenEthAddy(address) : null}
