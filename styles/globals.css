@@ -42,6 +42,9 @@ html::-webkit-scrollbar {
 }
 
 html:before {
+  height:100vh;
+  min-height: -webkit-fill-available;
+  overflow: hidden -moz-hidden-unscrollable;
   opacity: .15;
   background: center url("../public/images/loot_room.png") ;
   background-size: cover;

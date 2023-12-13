@@ -23,7 +23,8 @@
 }
 
 .table {
-    width:420px;
+    max-width:420px;
+    width: 98vw;
     background-color: #21242905;
     backdrop-filter: blur(5px);
     border-left: 1px solid #ffffff4e;
