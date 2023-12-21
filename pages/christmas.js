@@ -56,12 +56,12 @@ export default function Christmas({alert}) {
         <HorizontalRule />
         <p className={styles.p}>
           We want to express our sincere gratitude to you for contributing
-          to the success of our "Very Based Christmas Party" - it truly became
+          to the success of our &quot;Very Based Christmas Party&quot; - it truly became
           an unforgettable event!
           <br />
           <br />
           Your presence added a wonderful sense of community to our gathering,
-          and it simply wouldn't have been as special without you!
+          and it simply wouldn&quot;t have been as special without you!
           <br />
           <br />
           A special shoutout goes to all the @BuildOnBase communities, projects,
