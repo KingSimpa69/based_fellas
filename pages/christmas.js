@@ -37,11 +37,12 @@ export default function Christmas({alert}) {
                 alert("info","Please enter your X username")
             }
         } catch (e){
-            if(e.message === "signer is undefined"){
+            if(e.message === "signer is undefined" || e.message === "t is undefined"){
                 console.log(e.message)
                 alert("error","No wallet provider connected")
             } else {
                 console.log(e.message)
+                alert("error",e.message)
             }
             
         }
