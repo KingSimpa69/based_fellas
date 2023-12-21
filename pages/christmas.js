@@ -3,11 +3,13 @@ import HorizontalRule from "@/components/HorizontalRule";
 import Image from "next/image";
 import { useState } from "react"
 import { useEthersSigner } from "@/hooks/ethers"
+import { useAccount } from 'wagmi'
 
 export default function Christmas({alert}) {
 
     const chainId = 8453
     const signer = useEthersSigner(chainId)
+    const { isConnected, address } = useAccount()
 
     const [xuser,setXuser] = useState("")
 
@@ -79,12 +81,17 @@ export default function Christmas({alert}) {
           We have a little surprise in store for each attendee of the Very Based
           Christmas Party!🎄
         </p>
-        <input className={styles.username} placeholder="X USERNAME" onChange={(e)=>setXuser(e.target.value)}/>
-        <div onClick={()=>{signMessage()}} className={styles.sigbutton}>
-        <p className={styles.littlesig}>{xuser}</p>
-          <Image src={"/images/sig.png"} width={120} height={120} />
-          <p>SIGN NAME</p>
-        </div>
+        {isConnected ? (
+        <>
+        <input className={styles.username} placeholder="X USERNAME" onChange={(e) => setXuser(e.target.value)} />
+            <div onClick={() => { signMessage(); } } className={styles.sigbutton}>
+                <p className={styles.littlesig}>{xuser}</p>
+                <Image src={"/images/sig.png"} width={120} height={120} />
+                <p>SIGN NAME</p>
+            </div>
+        </>
+        ):(<p className={styles.notconnected}>WALLET NOT CONNECTED</p>)}
+
       </div>
     </>
   );
