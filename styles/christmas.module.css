@@ -1,0 +1,105 @@
+.santaisfat {
+    width: 100vw;
+    min-height: -webkit-fill-available;
+    overflow: hidden -moz-hidden-unscrollable;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.bghack{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    background-image: url("/images/christmas.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bghack::before{
+    background-size: cover;
+    background-repeat: no-repeat;
+    content: "";
+    position: fixed;
+    left: 0; right: 0;
+    top: 0; bottom: 0;
+    background: #2124296e;
+    backdrop-filter: blur(5px);
+    z-index: -1;
+}
+
+.h1 {
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    margin-top:-15px;
+    margin-bottom:-10px;
+    color: #e3e3e3;
+    font-family: righteous;
+    width:420px;
+    min-width: 50vw;
+    max-width: 100vw;
+    text-align: center;
+}
+
+.p {
+    font-family: kanit;
+    letter-spacing: 2px;
+    color:#ffffff;
+    width:420px;
+    min-width: 50vw;
+    max-width: 100vw;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:10px;
+    padding-right:10px;
+    background-color: hsla(0, 0%, 100%, 0.041);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.sigbutton {
+    text-align: center;
+    padding: 10px;
+    backdrop-filter: blur(2px);
+    color:#ffffffac;
+    margin-top: 25px;
+    cursor: pointer;
+    opacity:.85;
+    font-family: coresans;
+}
+
+.littlesig{
+    position: fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index: +1;
+    font-family: sig;
+    font-size: 20px;
+    color:#000000;
+}
+
+.sigbutton:hover {
+    transform: translateY(-2px);
+    cursor: pointer;
+    opacity:1;
+}
+
+.username {
+    margin-top: 25px;
+    text-transform: uppercase;
+    font-family: kanit;
+    font-weight: bolder;
+    font-size: 20px;
+    text-align: center;
+    height:30px;
+    width:250px;
+}

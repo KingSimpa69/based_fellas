@@ -4,6 +4,12 @@
 }
 
 @font-face {
+  font-family: sig;
+  src: url(../fonts/sig.otf);
+}
+
+
+@font-face {
   font-family: righteous;
   src: url(../fonts/Righteous-Regular.ttf);
 }
