@@ -13,7 +13,12 @@ export default async function handler(req, res) {
     const client = await connectDb();
     const db = client.db('based_fellas');
     const crackerListCollection = db.collection('crackerList');
-    const existingEntry = await crackerListCollection.findOne({ wallet: address, xuser: message });
+    const existingEntry = await crackerListCollection.findOne({
+        $or: [
+          { wallet: address },
+          { xuser: message },
+        ],
+      });
 
     if (existingEntry) {
       return res.status(409).json({ message: 'Already signed!' });
