@@ -5,12 +5,14 @@ import { useEthersSigner } from "@/hooks/ethers"
 import { useAccount } from 'wagmi'
 import Image from "next/image"
 import ABI from "@/functions/abi.json"
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 export default function Christmas ({alert}) {
 
     const chainId = 8453
     const signer = useEthersSigner(chainId)
     const { isConnected } = useAccount()
+    const { width } = useWindowSize();
 
     const mint = async () => {
         try{
@@ -34,20 +36,20 @@ export default function Christmas ({alert}) {
             <div className={styles.bghack} />
                 <div className={styles.santaisfat}>
 
-                <h1 className={styles.header}>🎄 Christmas Cracker Collection 🎄</h1>
+                <h1 className={styles.header}>{width < 760 ? "" : "🎄"} Christmas Cracker Collection {width < 760 ? "" : "🎄"}</h1>
 
                 <p className={styles.p}>Exclusive Gift for A Very Based Christmas Party Attendees!</p>
 
-                <h2 className={styles.header}>💰 Built-In Liquidity Pool 💰</h2>
+                <h2 className={styles.header}>{width < 500 ? "" : "💰"} Built-In Liquidity Pool {width < 500 ? "" : "💰"}</h2>
                 <p className={styles.p}>Every secondary market sale royalty is seamlessly directed to the Christmas Cracker smart contract, enriching the built-in liquidity pool with ETH. Invest in holiday spirit while supporting the project&apos;s sustainability.</p>
 
-                <h2 className={styles.header}>💵 Redemption & Tax 💵</h2>
+                <h2 className={styles.header}>{width < 500 ? "" : "💵"} Redemption & Tax {width < 500 ? "" : "💵"}</h2>
                 <p className={styles.p}>Never wait for a buyer with our built-in liquidity pool & sellBack function! You can redeem your Christmas Cracker at any time, accompanied by a 10% redemption tax. This ensures a positive loop in liquidity, contributing to the long-term growth of the collection.</p>
 
-                <h2 className={styles.header}>⏳ Redemption Cooldown ⏳</h2>
+                <h2 className={styles.header}>{width < 500 ? "" : "⏳"} Redemption Cooldown {width < 500 ? "" : "⏳"}</h2>
                 <p className={styles.p}>To maintain price support and a healthy market, there&apos;s a one-month cooldown on buy-backs. This strategic cooldown period encourages a balance in buys/sells and adds stability to the Christmas Cracker price</p>
 
-                <h2 className={styles.header}>🎨 On-Chain Metadata 🎨</h2>
+                <h2 className={styles.header}>{width < 500 ? "" : "🎨"} On-Chain Metadata {width < 500 ? "" : "🎨"}</h2>
                 <p className={styles.p}>On-chain metadata—every detail and image is securely stored directly on the blockchain, eliminating reliance on external sources. Immerse yourself in the magic of the holidays with authentic, verifiable content.</p>
                 <HorizontalRule />
                 {
