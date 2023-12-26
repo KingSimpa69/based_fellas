@@ -1,98 +1,69 @@
-import styles from "@/styles/christmas.module.css";
-import HorizontalRule from "@/components/HorizontalRule";
-import Image from "next/image";
-import { useState } from "react"
+import styles from "@/styles/christmas.module.css"
+import HorizontalRule from "@/components/HorizontalRule"
+import { ethers } from "ethers"
 import { useEthersSigner } from "@/hooks/ethers"
 import { useAccount } from 'wagmi'
+import Image from "next/image"
+import ABI from "@/functions/abi.json"
 
-export default function Christmas({alert}) {
+export default function Christmas ({alert}) {
 
     const chainId = 8453
     const signer = useEthersSigner(chainId)
-    const { isConnected, address } = useAccount()
+    const { isConnected } = useAccount()
 
-    const [xuser,setXuser] = useState("")
-
-
-    const signMessage = async () => {
+    const mint = async () => {
         try{
-            if(xuser!==""){
-                const address = await signer.getAddress();
-                const message = xuser;
-                const signature = await signer.signMessage(message)
-                const response = await fetch('/api/christmasig', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      address: address,
-                      message: message,
-                      signature,
-                    }),
-                  });
-            
-                  const result = await response.json();
-                  result.message === "Signature verified!" ? alert("success",result.message):
-                  alert("error",result.message)
-            } else {
-                alert("info","Please enter your X username")
-            }
+            const crackaContract = new ethers.Contract("0xA98352617075580246aF6bbe83078c6c70C106dC", ABI.cracka, signer);
+            const tx = await crackaContract.mint()
+            alert("info","Minting...")
+            const receipt = await tx.wait();
+            await receipt.hash ? alert("success","Merry Christmas!") : null
         } catch (e){
-            if(e.message === "signer is undefined" || e.message === "t is undefined"){
-                console.log(e.message)
-                alert("error","No wallet provider connected")
-            } else {
-                console.log(e.message)
-                alert("error",e.message)
-            }
-            
+            const pattern = /reason="([^"]*)"/;
+            const match = pattern.exec(e.message);
+            const pattern2 = /([^()]+) \(/;
+            const nonContractMatch = pattern2.exec(e.message);
+            const reason = match === null ? nonContractMatch[1] : match[1]
+            alert("error",reason)
         }
-
     }
-  return (
-    <>
-      <div className={styles.bghack} />
-      <div className={styles.santaisfat}>
-        <HorizontalRule />
-        <h1 className={styles.h1}>MERRY CHRISTMAS</h1>
-        <HorizontalRule />
-        <p className={styles.p}>
-          We want to express our sincere gratitude to you for contributing
-          to the success of our &quot;Very Based Christmas Party&quot; - it truly became
-          an unforgettable event!
-          <br />
-          <br />
-          Your presence added a wonderful sense of community to our gathering,
-          and it simply wouldn&quot;t have been as special without you!
-          <br />
-          <br />
-          A special shoutout goes to all the @BuildOnBase communities, projects,
-          and users who joined us. Your support is immensely appreciated.
-          <br />
-          <br />
-          As we continue to celebrate the holiday season, may the spirit of
-          creativity and community linger with you. Thank you for being a part
-          of this historic event.
-          <br />
-          <br />
-          Feel free to sign our guestbook below to confirm your attendance!
-          Signatures are gasless and require no approval or transfer functions.
-          We have a little surprise in store for each attendee of the Very Based
-          Christmas Party!🎄
-        </p>
-        {isConnected ? (
-        <>
-        <input className={styles.username} placeholder="X USERNAME" onChange={(e) => setXuser(e.target.value)} />
-            <div onClick={() => { signMessage(); } } className={styles.sigbutton}>
-                <p className={styles.littlesig}>{xuser}</p>
-                <Image src={"/images/sig.png"} width={120} height={120} />
-                <p>SIGN NAME</p>
-            </div>
-        </>
-        ):(<p className={styles.notconnected}>WALLET NOT CONNECTED</p>)}
 
-      </div>
-    </>
-  );
+    return(
+        <>
+            <div className={styles.bghack} />
+                <div className={styles.santaisfat}>
+
+                <h1 className={styles.header}>🎄 Christmas Cracker Collection 🎄</h1>
+
+                <p className={styles.p}>Exclusive Gift for A Very Based Christmas Party Attendees!</p>
+
+                <h2 className={styles.header}>💰 Built-In Liquidity Pool 💰</h2>
+                <p className={styles.p}>Every secondary market sale royalty is seamlessly directed to the Christmas Cracker smart contract, enriching the built-in liquidity pool with ETH. Invest in holiday spirit while supporting the project&apos;s sustainability.</p>
+
+                <h2 className={styles.header}>💵 Redemption & Tax 💵</h2>
+                <p className={styles.p}>Never wait for a buyer with our built-in liquidity pool & sellBack function! You can redeem your Christmas Cracker at any time, accompanied by a 10% redemption tax. This ensures a positive loop in liquidity, contributing to the long-term growth of the collection.</p>
+
+                <h2 className={styles.header}>⏳ Redemption Cooldown ⏳</h2>
+                <p className={styles.p}>To maintain price support and a healthy market, there&apos;s a one-month cooldown on buy-backs. This strategic cooldown period encourages a balance in buys/sells and adds stability to the Christmas Cracker price</p>
+
+                <h2 className={styles.header}>🎨 On-Chain Metadata 🎨</h2>
+                <p className={styles.p}>On-chain metadata—every detail and image is securely stored directly on the blockchain, eliminating reliance on external sources. Immerse yourself in the magic of the holidays with authentic, verifiable content.</p>
+                <HorizontalRule />
+                {
+                    isConnected ? (
+                        <>
+                            <p className={styles.minttomint}>CLICK THE MINT BELOW TO MINT</p>
+                            <div onClick={()=>mint()} className={styles.sigbutton}>
+                            <Image alt={'mint'} src={'/images/mint.png'} width={100} height={100} />
+                            </div>
+                        </>
+                    ) : (
+                        <p className={styles.minttomint}>WALLET NOT CONNECTED</p>
+                    )
+                }
+                </div>
+        </>
+    )
+
 }
