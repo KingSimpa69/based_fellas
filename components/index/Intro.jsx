@@ -1,6 +1,7 @@
 import styles from "@/styles/index.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { shortenEthAddy } from "@/functions/shortenEthAddy"
+import OpenSeaStatBox from "./OpenSeaStatBox"
 
 const Intro = ({alert,width}) => {
 
@@ -15,6 +16,7 @@ const Intro = ({alert,width}) => {
             <p>THE VERY FIRST 10K PFP NFT COLLECTION LAUNCHED ON BASE</p>
             <div onClick={()=>copyToClipboard()} className={styles.ctc}><div>{width>800?"0x217Ec1aC929a17481446A76Ff9B95B9a64F298cF":shortenEthAddy("0x217Ec1aC929a17481446A76Ff9B95B9a64F298cF")}</div><div className={styles.ctci}><FontAwesomeIcon icon="fa-regular fa-copy" /></div></div>
             <div className={styles.ctcd}>Copy to clipboard</div>
+            <OpenSeaStatBox />
         </div>
     )
 }

@@ -234,6 +234,7 @@
 }
 
 .ctc {
+    background-color: #0000003a;
     margin-top:10px;
     font-family: coresans;
     color:#ccc9ff;
@@ -270,6 +271,59 @@
     text-transform: uppercase;
     font-family: moon;
     font-size: 12px;
+}
+
+.osWrapper {
+    color: #ffffffbd;
+    font-family: hamlin;
+}
+
+.osContainer {
+    margin-top:20px;
+    backdrop-filter: blur(15px);
+    background-color: #0000003a;
+    opacity: 0.8;
+    padding:10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    border:1px solid #ccc9ff;
+    border-radius: 10px;
+}
+
+.osContainer:hover {
+    opacity: 1;
+    cursor:pointer;
+}
+
+.osStatContainer {
+    color:#ffffff;
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom:10px;
+}
+
+.osStat {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.osStatContainer:first-child {
+    font-family: coresans;
+}
+
+.osStatContainer p {
+    color: #ffffff81;
+    font-size: 12px;
+    margin: 0;
+    font-family: kanit;
 }
 
   @media only screen and (max-width: 768px) {
