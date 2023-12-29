@@ -278,7 +278,12 @@
     font-family: hamlin;
 }
 
+.osWrapper a{
+    text-decoration: none;
+}
+
 .osContainer {
+    text-decoration: none;
     margin-top:20px;
     backdrop-filter: blur(15px);
     background-color: #0000003a;
