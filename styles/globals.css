@@ -1,27 +1,37 @@
-@font-face {
-  font-family: kanit;
-  src: url(../fonts/Kanit-Thin.ttf);
-}
-
-@font-face {
-  font-family: sig;
-  src: url(../fonts/sig.otf);
-}
-
-
+/* Main header font for all pages */
 @font-face {
   font-family: righteous;
   src: url(../fonts/Righteous-Regular.ttf);
 }
 
+/* Font for numbers, tabularnums optimized */
 @font-face {
   font-family: coresans;
   src: url(../fonts/coresans.ttf);
 }
 
+/* Pixel font for that pixel art feel */
+@font-face {
+  font-family: mana;
+  src: url(../fonts/mana.ttf);
+}
+
+/* A font that simulates handwriting */
+@font-face {
+  font-family: sig;
+  src: url(../fonts/sig.otf);
+}
+
+/* Clean font that only has caps (fucking stupid) */
 @font-face {
   font-family: moon;
   src: url(../fonts/moon.otf);
+}
+
+/* Clean fonts for p tags. The backbone of the website */
+@font-face {
+  font-family: kanit;
+  src: url(../fonts/Kanit-Thin.ttf);
 }
 
 @font-face {
@@ -29,10 +39,7 @@
   src: url(../fonts/hamlin.ttf);
 }
 
-@font-face {
-  font-family: mana;
-  src: url(../fonts/mana.ttf);
-}
+
 
 html{
   background: #212429;

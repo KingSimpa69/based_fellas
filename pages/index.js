@@ -7,14 +7,16 @@ import WhoWeAre from "@/components/index/WhoWeAre";
 import HorizontalRule from "@/components/HorizontalRule";
 import OurTeam from "@/components/index/OurTeam";
 import MateModal from "@/components/index/MateModal";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 const FellaStrip = dynamic(
   () => import('@/components/index/FellaStrip'),
   { ssr: false }
 )
 
-export default function Home() {
+export default function Home({alert}) {
 
+  const { width } = useWindowSize();
   const [mateModal, toggleMateModal] = useState(false)
   const [mate,setMate] = useState(0)
   const randomImageURLs = generateRandomImageURLs(9999);
@@ -40,7 +42,7 @@ export default function Home() {
   return (
     <div className={styles.wrapper}>
     <MateModal mate={mate} toggle={toggleMateModal} modalStatus={mateModal}/>
-    <Intro />
+    <Intro width={width} alert={alert}/>
     <HorizontalRule />
     <FellaStrip randomImages={randomImages} nextImages={nextImages} />
     <HorizontalRule />

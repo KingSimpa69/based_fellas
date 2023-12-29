@@ -7,10 +7,11 @@ import Footer from '@/components/Footer';
 import Menu from '@/components/Menu';
 const { library, config } = require('@fortawesome/fontawesome-svg-core');
 import { faTwitter, faGithub, faDiscord, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import WAGMI from '@/components/web3/WAGMI';
 import Alert from '@/components/Alert';
 import { useWindowSize } from "@/hooks/useWindowSize";
-library.add(faTwitter,faGithub,faDiscord,faLinkedin)
+library.add(faTwitter,faGithub,faDiscord,faLinkedin,faCopy)
 config.autoAddCss = false;
 
 
