@@ -8,7 +8,7 @@ const Footer = () => {
     let year =  new Date().getFullYear();
 
     return (
-        <><HorizontalRule /><div className={styles.wrapper}>
+        <div className={styles.footer}><HorizontalRule /><div className={styles.wrapper}>
             <div className={styles.left}>
                 <h1 className={styles.h1}>Based Fellas</h1>
                 <p className={styles.copyright}>&copy; {year}</p>
@@ -21,7 +21,7 @@ const Footer = () => {
                 <a className={`${styles.icon} ${styles.blockscout}`} href="https://base.blockscout.com/token/0x217Ec1aC929a17481446A76Ff9B95B9a64F298cF" target="_blank"><Image alt="blockscout" src={"/images/blockscout.png"} width={25} height={25} /></a>
                 <a className={styles.icon} href="https://github.com/KingSimpa69" target="_blank"><FontAwesomeIcon icon="fa-brands fa-github" /></a>
             </div>
-        </div></>
+        </div></div>
     )
 }
 

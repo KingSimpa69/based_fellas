@@ -1,3 +1,8 @@
+.footer {
+    position: relative;
+    z-index: 2;
+}
+
 .wrapper {
     display: flex;
     position: relative;
@@ -55,7 +60,6 @@
 }
 
 .blockscout {
-    
     display:flex;
     justify-content: center;
     align-items: center;
