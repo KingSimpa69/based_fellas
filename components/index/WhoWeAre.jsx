@@ -3,13 +3,19 @@ import styles from "@/styles/index.module.css"
 const WhoWeAre = () => {
 
     return(
-        <div className={styles.aboutWrapper}>
-            <h1>About Us</h1>
-            <p>Welcome to the home of the Based Fellas. 
-                We&apos;re a 10k generative pfp NFT art collection that made history by launching on Ethereum&apos;s Layer 2, Base. 
-                After the initial launch, the project&apos;s developer handed over control to trusted community members. 
-                Together, we blend art and community spirit, fresh ideas and knowledge of Web3 development. 
-                If you like the art, own a Based Fellow, join our community, and come along for the exciting ride as we explore web3 possibilities.</p>
+        <div className={styles.container}>
+            <h1>OUR STORY</h1>
+            <p className={styles.ourStory}>
+                Launched during the on-chain summer, Based Fellas, a free mint, made history as the very first 10K pfp NFT collection to launch on BASE, Coinbase&apos;s Layer 2 for Ethereum. 
+                <br/><br/>
+                The original developer, a week after the mint, decided they were no longer interested in building or maintaining the project. After much deliberation, ownership of the contract was transferred to trusted community members, relieving the developer of any responsibility.
+                <br/><br/>
+                Going forward, the community built a Discord, new website, new Twitter, and are currently developing an entire ecosystem/ethos around the Based Fellas, alongside other Base communities.
+                <br/><br/>
+                Not only do Based Fellas boast historical significance by holding the title as the very first 10k pfp to deploy on BASE, but we also hold the key to a strong community. We embody the spirit of innovation and collaboration that defines the foundation of what BASE was built upon.
+                <br/><br/>
+                If you like the art, grab a Based Fella, join our community, and be a part of history as we explore web3 possibilities on BASE. The L2 built to bring the next billion users on-chain.
+            </p>
         </div>
     )
 }

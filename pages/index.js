@@ -5,6 +5,8 @@ import styles from "@/styles/index.module.css"
 import Intro from "@/components/index/Intro";
 import WhoWeAre from "@/components/index/WhoWeAre";
 import HorizontalRule from "@/components/HorizontalRule";
+import OurTeam from "@/components/index/OurTeam";
+import MateModal from "@/components/index/MateModal";
 
 const FellaStrip = dynamic(
   () => import('@/components/index/FellaStrip'),
@@ -13,6 +15,8 @@ const FellaStrip = dynamic(
 
 export default function Home() {
 
+  const [mateModal, toggleMateModal] = useState(false)
+  const [mate,setMate] = useState(0)
   const randomImageURLs = generateRandomImageURLs(9999);
   const [randomImages, setRandomImages] = useState(randomImageURLs.slice(0, 15));
   const [nextImages, setNextImages] = useState(randomImageURLs.slice(15, 30));
@@ -35,11 +39,13 @@ export default function Home() {
 
   return (
     <div className={styles.wrapper}>
+    <MateModal mate={mate} toggle={toggleMateModal} modalStatus={mateModal}/>
     <Intro />
     <HorizontalRule />
     <FellaStrip randomImages={randomImages} nextImages={nextImages} />
     <HorizontalRule />
     <WhoWeAre />
+    <OurTeam setMate={setMate} modalStatus={mateModal} toggleModal={toggleMateModal}/>
     </div>
   )
 }

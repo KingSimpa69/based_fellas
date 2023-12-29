@@ -11,7 +11,7 @@
     text-align: center;
 }
 
-.bghack{
+.bghack {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -21,7 +21,7 @@
     background-repeat: no-repeat;
 }
 
-.bghack::before{
+.bghack::before {
     background-size: cover;
     background-repeat: no-repeat;
     content: "";
@@ -76,7 +76,7 @@
     font-family: coresans;
 }
 
-.littlesig{
+.littlesig {
     position: fixed;
     top:0;
     bottom:0;
@@ -105,23 +105,23 @@
     width:250px;
 }
 
-.notconnected{
+.notconnected {
     font-family: kanit;
     color:#ffffff;
     font-size: 20px;
 }
 
-.header{
+.header {
     font-family:mana;
     color:#ffffff;
 }
 
-.footer{
+.footer {
     font-family:hamlin;
     color:#ffffff;
 }
 
-.minttomint{
+.minttomint {
     color:#ffffff;
     font-family: moon;
 }

@@ -8,6 +8,14 @@
     width:100vw;
 }
 
+.brand a {
+    text-decoration: none;
+}
+
+.brand a:hover {
+    cursor:pointer;
+}
+
 .navbarwrap div{
     width:420px;
     display:flex;
@@ -50,10 +58,6 @@
 .purpbutton:hover{
     transform: scale(1.05);
     cursor: pointer;
-}
-
-.brand:hover{
-    cursor: default;
 }
 
 .brand img {

@@ -53,3 +53,13 @@
     opacity: .85;
     cursor: pointer;
 }
+
+.blockscout {
+    
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 0px solid #ffffff;
+    border-radius: 20px;
+}
