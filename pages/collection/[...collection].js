@@ -36,7 +36,7 @@ export default function Collection() {
   }
 
   const checkForDynamic = async () => {
-    await delay(100)
+    await delay(300)
     if(router.query.collection){
       console.log(router.query.collection[0])
       if(router.query.collection[0] !== undefined){
@@ -53,7 +53,11 @@ export default function Collection() {
   }
 
   useEffect(() => {
-    checkForDynamic()
+    let mounted = true;
+    mounted && checkForDynamic()
+    return ()=>{
+      mounted = false
+    }
   }, [router])
 
   const filterProps = {

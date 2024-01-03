@@ -9,6 +9,7 @@ return (
     <div className={styles.wrapper}>
       <HorizontalRule />
       <h1 className={styles.h1}>Holders</h1>
+      <p className={styles.threehnote}>Blockchain is queried once per hour.</p>
       <HorizontalRule />
       <Table windowSize={windowSize}/>
     </div>

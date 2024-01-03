@@ -1,5 +1,10 @@
-.wrapper {
+@keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
 
+.wrapper {
     padding-top:10px;
     padding-bottom:10px;
     padding-left:5px;
@@ -24,6 +29,15 @@
 .disconnected {
     background: #eaac007c;
 }
+
+.networkFlash {
+    animation: blink 1s linear infinite;
+}
+
+.networkFlash:hover {
+    cursor:pointer;
+}
+
 
 .connectButton:hover {
     color: #ffffff;

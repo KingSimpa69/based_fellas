@@ -5,6 +5,7 @@ import styles from "@/styles/holders.module.css"
 import delay from "@/functions/delay";
 import Owned from "@/components/holders/Owned";
 import HorizontalRule from "@/components/HorizontalRule";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 const Holders = ({alert}) => {
 
@@ -12,6 +13,7 @@ const Holders = ({alert}) => {
     const [addy,setAddy] = useState("")
     const [owned, setOwned] = useState([])
     const router = useRouter()
+    const {width} = useWindowSize();
 
     const getOwned = async(address) => {
         try{
@@ -53,10 +55,10 @@ const Holders = ({alert}) => {
       }, [router])
 
     return(
-        <>
+        <div className={styles.wrapper}>
         {loading ? <><HorizontalRule /><p className={styles.loading}>Loading...</p></> :
-        owned.length !== 0 ? <Owned addy={addy} ownedArray={owned}/> : <p>This address doesn&quot;t own any fellas!</p>}
-        </>
+        owned.length !== 0 ? <Owned width={width} addy={addy} ownedArray={owned}/> : <p>This address doesn&quot;t own any fellas!</p>}
+        </div>
     )
 }
 

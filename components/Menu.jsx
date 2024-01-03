@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import delay from "@/functions/delay";
 import Web3 from "./web3/Web3";
 
-const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1}) => {
+const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1, goodGood}) => {
 
     const [css0,setCss0] = useState("hidden")
     const [initalRender,setInitialRender] = useState(true);
@@ -46,7 +46,7 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1}) => {
 
 return (
     <div className={`${css0} ${styles.wrapper}`}>
-      <Web3 toggleMenu={toggleMenu} />
+      <Web3 goodGood={goodGood} toggleMenu={toggleMenu} />
         <p onClick={()=>{changePage("/")}} className={router.asPath!=="/"?styles.item:`${styles.item} ${styles.active}`}>Home</p>
         <p onClick={()=>{changePage("/collection")}} className={router.asPath!=="/collection"&&currentPath!=="collection"?styles.item:`${styles.item} ${styles.active}`}>Collection</p>
         <p onClick={()=>{changePage("/owned")}} className={router.asPath!=="/owned"?styles.item:`${styles.item} ${styles.active}`}>Owned</p>

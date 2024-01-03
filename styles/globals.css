@@ -98,3 +98,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+

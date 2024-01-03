@@ -4,7 +4,7 @@ import styles from "../../styles/web3.module.css"
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { shortenEthAddy } from "@/functions/shortenEthAddy"
 
-const Web3 = ({toggleMenu}) => {
+const Web3 = ({toggleMenu, goodGood}) => {
 
     const { open } = useWeb3Modal()
     const { isConnected, address } = useAccount()
@@ -21,15 +21,34 @@ const Web3 = ({toggleMenu}) => {
         }
     }
 
+    const checkGoodToTx = () => {
+        isConnected === false ? goodGood(false) :
+        chain.id === 8453 || chain.id === 84532 ? goodGood(true) :
+        goodGood(false)
+    }
+
+    useEffect(() => {
+      let mounted = true
+      mounted && checkGoodToTx()
+      return () => {
+        mounted = false
+      }
+    }, [isConnected, address, chain])
+    
+
     useEffect(()=>{
         toggleMenu(false)
     },[isConnected])
 
     return(
         <div className={`${styles.wrapper} ${isConnected === false ? styles.disconnected :
-            chain.id === 8453 || 84532 ? styles.connected :
+            chain.id === 8453 || chain.id === 84532 ? styles.connected :
              styles.disconnected }`}>
-            <div>
+            <div className={`${isConnected === false ? styles.networkFlash :
+                chain.id === 8453 || chain.id === 84532 ? null :
+                styles.networkFlash }`} onClick={(e)=>{
+                e.currentTarget.innerText === "Unknown Network" ? open({ view: 'Networks' }) :
+                e.currentTarget.innerText === "Disconnected" ? open({ view: 'Connect' }) : null}}>
                 {isConnected === false ? "Disconnected" :
                  chain.id === 8453 ? "BASE" : 
                  chain.id === 84532 ? "BASE SEPOLIA":

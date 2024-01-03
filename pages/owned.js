@@ -7,7 +7,7 @@ const Loader = dynamic(
   { ssr: false }
 )
 
-export default function Owned() {
+export default function Owned({alert}) {
 
   const { isConnected, address } = useAccount()
 
@@ -15,9 +15,9 @@ export default function Owned() {
     <div className={styles.wrapper}>
       <HorizontalRule />
         <h1 className={styles.h1}>Owned</h1>
-        <p className={styles.threehnote}>Due to base rate limiting. Chain is only queried every three hours.</p>
+        <p className={styles.threehnote}>Blockchain is queried once per hour.</p>
       <HorizontalRule />
-      <div className={styles.p}>{isConnected?<Loader address={address}/>:"Wallet not connected!"}</div>
+      <div className={styles.p}>{isConnected?<Loader alert={alert} address={address}/>:"Wallet not connected!"}</div>
     </div>
   )
 }

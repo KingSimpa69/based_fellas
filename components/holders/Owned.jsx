@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import Image from "next/image";
 import styles from "@/styles/holders.module.css";
 import HorizontalRule from "../HorizontalRule";
+import { shortenEthAddy } from "@/functions/shortenEthAddy";
+import Link from "next/link";
 
-const Owned = ({ ownedArray, addy }) => {
+const Owned = ({ ownedArray, addy, width }) => {
 
   useEffect(() => {
     let mounted = true;
@@ -17,13 +19,15 @@ const Owned = ({ ownedArray, addy }) => {
   return (
     <>
       <HorizontalRule />
-      <h1 className={styles.h2}>{addy}</h1>
+      <a href={`https://base.blockscout.com/address/${addy}`} target="_blank"><h1 className={styles.h2}>{width>450?addy:shortenEthAddy(addy)}</h1></a>
       <HorizontalRule />
       <div className={styles.fellawrapper}>
         {ownedArray.map((e, index) => {
           return (
             <div key={index} className={styles.fella}>
-              <Image alt={`fella-${e}`} src={`/images/fellas/${e}.png`} width={100} height={100} />
+              <Link href={`/collection/${e}`}>
+                <Image alt={`fella-${e}`} src={`/images/fellas/${e}.png`} width={100} height={100} />
+              </Link>
             </div>
           );
         })}
