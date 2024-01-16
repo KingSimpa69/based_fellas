@@ -52,7 +52,7 @@ return (
         <p onClick={()=>{changePage("/collection")}} className={router.asPath!=="/collection"&&currentPath!=="collection"?styles.item:`${styles.item} ${styles.active}`}>Collection</p>
         <p onClick={()=>{changePage("/owned")}} className={router.asPath!=="/owned"?styles.item:`${styles.item} ${styles.active}`}>Owned</p>
         <p onClick={()=>{changePage("/holders")}} className={router.asPath!=="/holders"&&currentPath!=="holders"?styles.item:`${styles.item} ${styles.active}`}>Holders</p>
-        <p onClick={()=>{changePage("/market")}} className={chain.id === 84532 ? (router.asPath!=="/market"?styles.item:`${styles.item} ${styles.active}`):"hidden"}>Market</p>
+        <p onClick={()=>{changePage("/market")}} className={chain && chain.id === 84532 ? (router.asPath!=="/market"?styles.item:`${styles.item} ${styles.active}`):"hidden"}>Market</p>
         {/*<p onClick={()=>{changePage("/chests")}} className={router.asPath!=="/chests"&&currentPath!=="chests"?styles.item:`${styles.item} ${styles.active}`}>Chests</p>*/}
     </div>
 )
