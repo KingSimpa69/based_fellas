@@ -53,3 +53,7 @@
     opacity:.80;
     cursor: pointer;
 }
+
+.network:hover {
+    cursor:pointer;
+}

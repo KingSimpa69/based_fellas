@@ -5,7 +5,7 @@ import styles from "@/styles/owned.module.css"
 import Image from 'next/image';
 import ABI from '@/functions/abi.json'
 
-const TransferModal = ({ alert, id, account, showModal, closeModal }) => {
+const TransferModal = ({ alert, id, showModal, closeModal }) => {
   const fellAddy = "0x217Ec1aC929a17481446A76Ff9B95B9a64F298cF";
   const chainId = 8453
   const [recipientAddress, setRecipientAddress] = useState('');

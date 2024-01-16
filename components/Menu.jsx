@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
 import delay from "@/functions/delay";
 import Web3 from "./web3/Web3";
+import { useNetwork } from "wagmi";
 
 const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1, goodGood}) => {
 
@@ -12,6 +13,7 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1, goodGood}) => {
     const pathRegex = /\/([^\/]+)\//;
     const pathMatch = router.asPath.match(pathRegex);
     const currentPath = pathMatch ? pathMatch[1] : null;
+    const { chain } = useNetwork()
 
     const changePage = async (route) => {
       if(route!==router.asPath && "/"+currentPath!==route){
@@ -43,14 +45,14 @@ const Menu = ({menu, toggleMenu, setGlobalCSS0, setGlobalCSS1, goodGood}) => {
         }
       },[menu])
 
-
 return (
     <div className={`${css0} ${styles.wrapper}`}>
-      <Web3 goodGood={goodGood} toggleMenu={toggleMenu} />
+      <Web3 chain={chain} goodGood={goodGood} toggleMenu={toggleMenu} />
         <p onClick={()=>{changePage("/")}} className={router.asPath!=="/"?styles.item:`${styles.item} ${styles.active}`}>Home</p>
         <p onClick={()=>{changePage("/collection")}} className={router.asPath!=="/collection"&&currentPath!=="collection"?styles.item:`${styles.item} ${styles.active}`}>Collection</p>
         <p onClick={()=>{changePage("/owned")}} className={router.asPath!=="/owned"?styles.item:`${styles.item} ${styles.active}`}>Owned</p>
         <p onClick={()=>{changePage("/holders")}} className={router.asPath!=="/holders"&&currentPath!=="holders"?styles.item:`${styles.item} ${styles.active}`}>Holders</p>
+        <p onClick={()=>{changePage("/market")}} className={chain.id === 84532 ? (router.asPath!=="/market"?styles.item:`${styles.item} ${styles.active}`):"hidden"}>Market</p>
         {/*<p onClick={()=>{changePage("/chests")}} className={router.asPath!=="/chests"&&currentPath!=="chests"?styles.item:`${styles.item} ${styles.active}`}>Chests</p>*/}
     </div>
 )

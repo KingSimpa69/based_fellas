@@ -3,28 +3,29 @@ import { useEffect } from 'react'
 import styles from "../../styles/web3.module.css"
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { shortenEthAddy } from "@/functions/shortenEthAddy"
+import { useRouter } from 'next/router'
 
-const Web3 = ({toggleMenu, goodGood}) => {
+const Web3 = ({chain,toggleMenu, goodGood}) => {
 
     const { open } = useWeb3Modal()
     const { isConnected, address } = useAccount()
     const { disconnect } = useDisconnect()
-    const { chain } = useNetwork()
+    const route = useRouter();
 
     const web3connect = async () => {
         if(isConnected === false){
             await open()
             return
         } else {
-            await disconnect()
+            disconnect()
             return
         }
     }
 
     const checkGoodToTx = () => {
-        isConnected === false ? goodGood(false) :
-        chain.id === 8453 || chain.id === 84532 ? goodGood(true) :
-        goodGood(false)
+        chain === undefined ? goodGood({connected:false,network:false}) :
+        chain.id === 8453 || chain.id === 84532 ? goodGood({connected:true,network:true}) :
+        goodGood({connected:true,network:false})
     }
 
     useEffect(() => {
@@ -33,7 +34,7 @@ const Web3 = ({toggleMenu, goodGood}) => {
       return () => {
         mounted = false
       }
-    }, [isConnected, address, chain])
+    }, [route,isConnected, address])
     
 
     useEffect(()=>{
@@ -45,10 +46,10 @@ const Web3 = ({toggleMenu, goodGood}) => {
             chain.id === 8453 || chain.id === 84532 ? styles.connected :
              styles.disconnected }`}>
             <div className={`${isConnected === false ? styles.networkFlash :
-                chain.id === 8453 || chain.id === 84532 ? null :
+                chain.id === 8453 || chain.id === 84532 ? styles.network :
                 styles.networkFlash }`} onClick={(e)=>{
                 e.currentTarget.innerText === "Unknown Network" ? open({ view: 'Networks' }) :
-                e.currentTarget.innerText === "Disconnected" ? open({ view: 'Connect' }) : null}}>
+                e.currentTarget.innerText === "Disconnected" ? open({ view: 'Connect' }) : open({ view: 'Networks' })}}>
                 {isConnected === false ? "Disconnected" :
                  chain.id === 8453 ? "BASE" : 
                  chain.id === 84532 ? "BASE SEPOLIA":
