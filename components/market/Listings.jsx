@@ -23,6 +23,9 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
     const [liquidateModal,setLiquidateModal] = useState(false)
     const [adminModal,setAdminModal] = useState(false)
     const [owner,setOwner] = useState("")
+    const [metaType,setMetaType] = useState("")
+
+
     const sortedListings = listed.map((e, index) => {
         return {
             index: index,
@@ -32,29 +35,59 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
         };
     }).sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
 
+    const getMetaDataType = async() => {
+        const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
+        const metaData = await nft.tokenURI(1)
+        metaData.startsWith("ipfs://") ? setMetaType("ipfs") :
+        metaData.startsWith("https://") || metaData.startsWith("http://") ? setMetaType("http") :
+        metaData.startsWith("data:application/json") ? setMetaType("onchain") :
+        setMetaType("IDFK")
+        //console.log(metaData)
+        return metaData.startsWith("ipfs://") ? "ipfs" :
+        metaData.startsWith("https://") || metaData.startsWith("http://") ? "http" :
+        metaData.startsWith("data:application/json") ? "onchain" :
+        "IDFK"
+    }
+
     const getListings = async () => {
         try{
             if(marketContract !== ""){
+                let metaDataArray = []
                 const market = new ethers.Contract(marketContract, ABI.market, provider);
                 const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
                 const ownerQuery = await nft.owner();
                 ownerQuery && setOwner(ownerQuery)
-                const ipfsGateway = 'https://ipfs.io/ipfs/';
-                const baseUri = await nft.baseURI();
+                const volume = await market.volume()
+                const listedResponse = await market.getListedTokens()
                 const symbol = await nft.symbol();
                 const supply = await nft.totalSupply();
                 const lpBal = await provider.provider.getBalance(marketContract)
-                const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
-                const volume = await market.volume()
-                const listedResponse = await market.getListedTokens()
                 const priceArray = await Promise.all(listedResponse.map(async (e) => {
                     return await market.price(e);
                 }));
                 let prices = priceArray.map(bn => parseInt(bn));
-                const metaDataArray = await Promise.all(listedResponse.map(async (e) => {
-                    const response = await fetch(metaURL+e);
-                    return response.json();
-                }));
+
+                const metaDataType = await getMetaDataType()
+
+                if(metaDataType === "ipfs"){
+                    const ipfsGateway = 'https://ipfs.io/ipfs/';
+                    const baseUri = await nft.baseURI();
+                    const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
+                    metaDataArray = await Promise.all(listedResponse.map(async (e) => {
+                        const response = await fetch(metaURL+e);
+                        return response.json();
+                    }));
+                } 
+                
+                if(metaDataType === "onchain"){
+                    metaDataArray = await Promise.all(listedResponse.map(async (e) => {
+                        const metaString = await nft.tokenURI(parseInt(e))
+                        const jsonString = atob(metaString.split(',')[1]);
+                        return JSON.parse(jsonString);
+                    }));
+                }
+
+
                 setStats({
                     totalVol: volume,
                     listed: listedResponse.length,
@@ -63,6 +96,7 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
                     supply: supply,
                     lpBal: lpBal
                 })
+
                 setMetaData(metaDataArray)
                 setListed(listedResponse)
                 setPrices(priceArray)
@@ -88,16 +122,16 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
     return( 
         <>
         <AdminModal alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} adminModal={adminModal} setAdminModal={setAdminModal}/>
-        <BuyModal alert={alert} reload={reload} listed={listed} marketContract={marketContract} nftContract={nftContract} provider={provider} price={prices[buyCrosshair]} metaData={metaData[buyCrosshair]} buyModal={buyModal} setBuyModal={setBuyModal} id={buyCrosshair}/>
-        <ListingModal alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setListingModal={setListingModal} listingModal={listingModal} />
-        <DelistingModal alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setDelistingModal={setDelistingModal} delistingModal={delistingModal} />
-        <LiquidateModal alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setLiquidateModal={setLiquidateModal} liquidateModal={liquidateModal} />
+        <BuyModal metaType={metaType} alert={alert} reload={reload} listed={listed} marketContract={marketContract} nftContract={nftContract} provider={provider} price={prices[parseInt(buyCrosshair)]} metaData={metaData[parseInt(buyCrosshair)]} buyModal={buyModal} setBuyModal={setBuyModal} id={parseInt(buyCrosshair)}/>
+        <ListingModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setListingModal={setListingModal} listingModal={listingModal} />
+        <DelistingModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setDelistingModal={setDelistingModal} delistingModal={delistingModal} />
+        <LiquidateModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setLiquidateModal={setLiquidateModal} liquidateModal={liquidateModal} />
         <div className={styles.listings}>
         <MarketControlz provider={provider} owner={owner} delistingModal={delistingModal} setDelistingModal={setDelistingModal} setListingModal={setListingModal} listingModal={listingModal} liquidateModal={liquidateModal} setLiquidateModal={setLiquidateModal} adminModal={adminModal} setAdminModal={setAdminModal} />
         <div className={styles.listingCont}>
         {sortedListings.map(item => (
             <div onClick={() => { setBuyCrosshair(item.index); setBuyModal(!buyModal) }} key={item.index}>
-                <Item id={item.id} price={item.price} metaData={item.metaData} />
+                <Item metaType={metaType} id={item.id} price={item.price} metaData={item.metaData} />
             </div>
         ))}
         {listed.length === 0 && <div className={styles.noListings}>No listings!</div>}

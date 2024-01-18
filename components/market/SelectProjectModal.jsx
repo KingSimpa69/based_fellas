@@ -1,18 +1,26 @@
 import styles from "@/styles/market.module.css"
 import { useEffect, useState } from "react"
-import markets from "@/markets.json"
 import { ethers } from "ethers"
 import { useEthersSigner } from "@/hooks/ethers"
-import { useNetwork } from 'wagmi'
 import ABI from "@/functions/abi.json"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import delay from "@/functions/delay"
 
 const SelectContractModal = ({chain,modalOpen,setModalOpen,changePage}) => {
 
+    const [css0,setCss0] = useState("hidden")
     const [css1,setCss1] = useState("hidden")
     const [search,setSearch] = useState("")
     const [result, setResult] = useState([])
     const provider = useEthersSigner()
+    const [markets,setMarkets] = useState([])
+
+    const fetchVerified = async () => {
+        const marketQuery = await fetch("https://raw.githubusercontent.com/KingSimpa69/markets/main/markets.json")
+        const marketList = await marketQuery.json();
+        chain.id === 8453 ? setMarkets(marketList[8453]) :
+        chain.id === 84532 ? setMarkets(marketList[84532]) : null
+    }
 
     const handleSearch = async (e) => {
         setSearch(e)
@@ -38,18 +46,31 @@ const SelectContractModal = ({chain,modalOpen,setModalOpen,changePage}) => {
         }
     }
 
-    useEffect(()=>{
-        modalOpen ? setCss1("modalWrapper") : setCss1("hidden")
-    },[modalOpen])
+    useEffect(() => {
+        fetchVerified()
+    }, [chain])
+    
+    useEffect(() => {
+        const closeModal = async() => {
+            setCss0("animate__animated animate__fadeOut animate__faster")
+            await delay(450)
+            setCss1("hidden")
+        }
+        const openModal = async() => {
+            setCss0("animate__animated animate__fadeIn animate__faster")
+            setCss1("modalWrapper")
+        }
+        modalOpen ? openModal() : closeModal()
+    }, [modalOpen])
 
     return(
-        <div className={styles[css1]} onClick={()=>setModalOpen(!modalOpen)}>
+        <div className={`${css0} ${styles[css1]}`} onClick={()=>setModalOpen(!modalOpen)}>
             <div onClick={(e)=>e.stopPropagation()} className={styles.selectProjectModal}>
                 <div className={styles.contractSearchCont}>
                     <input value={search} onChange={(e)=>handleSearch(e.target.value)} type="text" className={styles.searchBar} placeholder="Enter marketplace contract" />
                 </div>
                 <div className={styles.contractList}>
-                    {search === "" && chain && chain.id === 8453 ? (markets.map((e,index) => {
+                    {search === "" && chain ? (markets.map((e,index) => {
                         return (
                             <div key={index} onClick={() => { changePage(`/market/${e.contracts.market}`) }} className={styles.clItem}>
                                 <div className={styles.clItemL}>

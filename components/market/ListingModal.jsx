@@ -10,7 +10,7 @@ import { Address } from "viem"
 import delay from "@/functions/delay"
 
 
-const ListingModal = ({alert,reload,setListingModal,listingModal,provider,nftContract,marketContract}) => {
+const ListingModal = ({metaType,alert,reload,setListingModal,listingModal,provider,nftContract,marketContract}) => {
 
     // status[0]Exists status[1]owned status[2]Approved
     const [status,setStatus] = useState([])
@@ -19,7 +19,7 @@ const ListingModal = ({alert,reload,setListingModal,listingModal,provider,nftCon
     const [price,setPrice] = useState("")
     const [errorMessage, setErrorMessage] = useState("");
     const [css0,setCss0] = useState("hidden")
-    const [css1,setCss1] = useState("")
+    const [css1,setCss1] = useState("hidden")
     const [image,setImage] =  useState(<FontAwesomeIcon icon="fa-regular fa-image" />)
 
     const debouncedID = useDebounce(id, 400);
@@ -27,25 +27,46 @@ const ListingModal = ({alert,reload,setListingModal,listingModal,provider,nftCon
     const handleEntry = async () => {
         setImage(<Spinner1 />);
         try {
+            const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
+
             let statusArray = [false, false, false];
+            let img = ""
     
             if (!ethers.isAddress(nftContract)) {
                 throw new Error('Invalid contract address');
             }
-    
-            const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
+
             const tokenURI = await nft.tokenURI(parseInt(id));
     
             if (tokenURI) {
                 statusArray = [true, false, false];
             }
-    
-            const ipfsGateway = 'https://ipfs.io/ipfs/';
-            const baseUri = await nft.baseURI();
-            const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
-            const metaResp = await fetch(`${metaURL}${id}`);
-            const metaData = await metaResp.json();
-            const imgURL = metaData?.image?.replace('ipfs://', 'https://ipfs.io/ipfs/') || null;
+
+            if(metaType === "ipfs"){
+                const ipfsGateway = 'https://ipfs.io/ipfs/';
+                const baseUri = await nft.baseURI();
+                const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
+                const metaResp = await fetch(`${metaURL}${id}`);
+                const metaData = await metaResp.json();
+                const imgURL = metaData?.image?.replace('ipfs://', 'https://ipfs.io/ipfs/') || null;
+                img = imgURL
+            }
+
+            if(metaType === "https"){
+                const baseUri = await nft.baseURI();
+                const metaResp = await fetch(`${baseUri}${id}`);
+                const metaData = await metaResp.json();
+                const imgURL = metaData?.image || null;
+                img = imgURL
+            }
+
+            if(metaType === "onchain"){
+                const metaString = await nft.tokenURI(parseInt(id))
+                const jsonString = atob(metaString.split(',')[1]);
+                const metaData = JSON.parse(jsonString);
+                img = metaData.image
+            }
+
             const owner = await nft.ownerOf(parseInt(id));
     
             if (owner === provider.address) {
@@ -58,7 +79,7 @@ const ListingModal = ({alert,reload,setListingModal,listingModal,provider,nftCon
                 statusArray = [true, true, true];
             }
 
-                setImage(<img width={150} src={imgURL} />);
+                setImage(<img width={150} src={img} />);
                 setStatus(statusArray);
 
         } catch (error) {
@@ -107,7 +128,7 @@ const ListingModal = ({alert,reload,setListingModal,listingModal,provider,nftCon
 
     useEffect(() => {
         let mounted = true
-        mounted && !isNaN(debouncedID) && handleEntry()
+        mounted && !isNaN(debouncedID) && ethers.isAddress(nftContract) && handleEntry()
         return()=>{mounted.false}
     }, [debouncedID])
 

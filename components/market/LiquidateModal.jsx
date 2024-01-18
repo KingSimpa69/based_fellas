@@ -9,7 +9,7 @@ import Spinner1 from "../Spinner1"
 import delay from "@/functions/delay"
 
 
-const LiquidateModal = ({alert,reload,setLiquidateModal,liquidateModal,provider,nftContract,marketContract}) => {
+const LiquidateModal = ({metaType,alert,reload,setLiquidateModal,liquidateModal,provider,nftContract,marketContract}) => {
 
     // status[0]Exists status[1]owned status[2]Approved
     const [status,setStatus] = useState([])
@@ -26,29 +26,50 @@ const LiquidateModal = ({alert,reload,setLiquidateModal,liquidateModal,provider,
     const handleEntry = async () => {
         setImage(<Spinner1 />);
         try {
+            const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
+            const market = new ethers.Contract(marketContract, ABI.market, provider);
+
             let statusArray = [false, false, false];
+
+            let img = "";
     
             if (!ethers.isAddress(nftContract)) {
                 throw new Error('Invalid contract address');
             }
-    
-            const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
-            const market = new ethers.Contract(marketContract, ABI.market, provider);
+
             const tokenURI = await nft.tokenURI(parseInt(id));
     
             if (tokenURI) {
                 statusArray = [true, false, false];
             }
-    
-            const ipfsGateway = 'https://ipfs.io/ipfs/';
-            const baseUri = await nft.baseURI();
-            const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
-            const metaResp = await fetch(`${metaURL}${id}`);
-            const metaData = await metaResp.json();
-            const imgURL = metaData?.image?.replace('ipfs://', 'https://ipfs.io/ipfs/') || null;
+
+            if(metaType === "ipfs"){
+                const ipfsGateway = 'https://ipfs.io/ipfs/';
+                const baseUri = await nft.baseURI();
+                const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
+                const metaResp = await fetch(`${metaURL}${id}`);
+                const metaData = await metaResp.json();
+                const imgURL = metaData?.image?.replace('ipfs://', 'https://ipfs.io/ipfs/') || null;
+                img = imgURL
+            }
+
+            if(metaType === "https"){
+                const baseUri = await nft.baseURI();
+                const metaResp = await fetch(`${baseUri}${id}`);
+                const metaData = await metaResp.json();
+                const imgURL = metaData?.image || null;
+                img = imgURL
+            }
+
+            if(metaType === "onchain"){
+                const metaString = await nft.tokenURI(parseInt(id))
+                const jsonString = atob(metaString.split(',')[1]);
+                const metaData = JSON.parse(jsonString);
+                img = metaData.image
+            }
+
             const owner = await nft.ownerOf(parseInt(id));
             const liquidationPrice = await market.itemValue();
-
             setLiquidationPrice(parseFloat(liquidationPrice)/10**18)
     
             if (owner === provider.address) {
@@ -61,11 +82,11 @@ const LiquidateModal = ({alert,reload,setLiquidateModal,liquidateModal,provider,
                 statusArray = [true, true, true];
             }
 
-                setImage(<img width={150} src={imgURL} />);
+                setImage(<img width={150} src={img} />);
                 setStatus(statusArray);
 
         } catch (error) {
-            //console.log(error);
+            console.log(error);
         }
     };
 
@@ -110,7 +131,7 @@ const LiquidateModal = ({alert,reload,setLiquidateModal,liquidateModal,provider,
 
     useEffect(() => {
         let mounted = true
-        mounted && !isNaN(debouncedID) && handleEntry()
+        mounted && !isNaN(debouncedID) && ethers.isAddress(nftContract) && handleEntry()
         return()=>{mounted.false}
     }, [debouncedID])
 

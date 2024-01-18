@@ -72,37 +72,42 @@
 }
 
 .dropdown {
-    width:150px;
+    width: 150px;
     text-align: center;
-    margin-bottom:20px;
+    margin-bottom: 20px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     user-select: none;
-    -moz-appearance: none;
     -webkit-padding-end: 20px;
     -moz-padding-end: 20px;
     -webkit-padding-start: 2px;
     -moz-padding-start: 2px;
     background-color: #000000eb;
-    color: #ccc9ff;
-    font-weight:bolder;
-    border: 1px solid #ccc9ff;
-    padding:5px 10px;
+    color: #69aeda;
+    font-weight: bolder;
+    border: 1px solid #415561;
+    border-radius: 5px;
+    padding: 5px 10px;
     font-family: kanit;
     font-size: 16px;
 }
 
 .dropdown:hover {
+    border: 1px solid #69aeda;
+    color: #5ac0ff;
     cursor: pointer;
 }
 
-.option { 
+.option {
     text-align: center;
     margin: 40px;
     background: rgba(0, 0, 0, 0.75);
-    color: #ccc9ff;
-}
+    color: #69aeda;
+    font-family: kanit;}
+
+.option:-moz-focusring option {
+    font-family: kanit;}
 
 .input {
     text-align: center;
@@ -112,7 +117,7 @@
     width: 100%;
     height: 36px;
     background-color: #000000eb;
-    border: 1px solid #ccc9ff;
+    border: 1px solid #69aeda;
     font-family: kanit;
     font-weight:bolder;
     font-size: 20px;
@@ -145,7 +150,8 @@
     background-color: #1c1c1c;
     width:420px;
     max-width: 96vw;
-    border: 3px solid #ccc9ff;
+    box-shadow: 0 0 200px 5px #00bbd444;
+    border: 1px solid #415561;
     border-radius: 10px;
     z-index: 4206970;
     overflow: hidden;

@@ -20,6 +20,7 @@ const Market = ({goodToTx,alert}) => {
     const provider = useEthersSigner()
     const [loading,setIsLoading] = useState(true)
     const [isValid,setIsValid] = useState(false)
+    const [errormsg,setErrormsg] = useState("")
     const route = useRouter();
 
     const stopLoading = async () => {
@@ -46,6 +47,7 @@ const Market = ({goodToTx,alert}) => {
                 setIsValid(true)
             }
         } catch (error) {
+            setErrormsg("Error loading market contract")
             setIsValid(false);
             stopLoading()
         }
@@ -56,8 +58,12 @@ const Market = ({goodToTx,alert}) => {
             if (provider !== undefined && goodToTx && route.query.market) {
                 const currentProvider = provider;
                 ethers.isAddress(route.query.market[0]) ? await checkMarket(route.query.market[0], currentProvider) : stopLoading()
+            } else if (provider === undefined) {
+                setErrormsg("Please connect a wallet")
+                stopLoading()
             }
         };
+        setIsLoading(true)
         fetchMarket();
     }, [provider]);
 
@@ -68,7 +74,7 @@ const Market = ({goodToTx,alert}) => {
             <HorizontalRule />
             {
             loading && !isValid ? <Loading /> :
-            !loading && !isValid ? <div className={styles.loading}>Error loading market contract</div> :
+            !loading && !isValid ? <div className={styles.loading}>{errormsg}</div> :
             loading && isValid ? <Loading /> :
             !loading && isValid ? null :
             null

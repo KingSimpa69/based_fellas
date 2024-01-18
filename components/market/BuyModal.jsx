@@ -5,14 +5,13 @@ import { useEffect, useState } from "react"
 import { shortenEthAddy } from "@/functions/shortenEthAddy"
 import delay from "@/functions/delay"
 
-const BuyModal = ({alert,reload,marketContract,nftContract,id,buyModal,setBuyModal,metaData,price,provider,listed}) => {
+const BuyModal = ({metaType,alert,reload,marketContract,nftContract,id,buyModal,setBuyModal,metaData,price,provider,listed}) => {
 
 
     const [owner,setOwner] = useState("ANON")
     const [css0,setCss0] = useState("hidden")
     const [css1,setCss1] = useState("")
-
-    const imgURL = metaData !== undefined ? metaData.image.replace('ipfs://', 'https://ipfs.io/ipfs/') : null
+    const [img,setImg] = useState("")
 
     const buy = async (i) => {
         try{
@@ -38,13 +37,13 @@ const BuyModal = ({alert,reload,marketContract,nftContract,id,buyModal,setBuyMod
         const getOwner = async () => {
             try{
                 const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
-                const result = await nft.ownerOf(id)
+                const result = await nft.ownerOf(listed[id])
                 setOwner(shortenEthAddy(result))
             } catch (error) {
                 console.log(error)
             }
         }
-        provider && !isNaN(id) && ethers.isAddress(nftContract) && getOwner()
+        provider && !isNaN(parseInt(id)) && ethers.isAddress(nftContract) && getOwner()
     }, [id])
 
     useEffect(() => {
@@ -60,13 +59,24 @@ const BuyModal = ({alert,reload,marketContract,nftContract,id,buyModal,setBuyMod
         buyModal ? openModal() : closeModal()
     }, [buyModal])
 
+    useEffect(() => {
+        if (metaData !== undefined){
+            if (metaType === "onchain"){
+                setImg(metaData.image)
+            } 
+            if (metaType === "ipfs"){
+                setImg(metaData.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+            }
+        }
+    }, [metaData,id])
+
     return(
         <div onClick={()=>setBuyModal(!buyModal)} className={`${css0} ${styles[css1]}`}>
             <div onClick={(e)=>e.stopPropagation()} className={styles.confirmBuyModal}>
                 <h1>Confirm Purchase</h1>
                 <div className={styles.confirmModalCenter}>
                     <div className={styles.confirmModalImage}>
-                        <img width={150} height={150} src={imgURL} />
+                        <img width={150} height={150} src={img} />
                     </div>
                     <div className={styles.confirmModalInfo}>
                         <div className={styles.confirmModalInfoItem}>

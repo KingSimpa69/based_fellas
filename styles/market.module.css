@@ -396,6 +396,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top:10px;
+    margin-bottom:10px;
 }
 
 .adminModalCenter {
@@ -697,9 +699,11 @@
 
 .deployArgument {
     width:100%;
-    text-align: center;
+    text-align: left;
+    padding-left:4px;
     font-family: kanit;
-    color:#ffffff;
+    font-size: 12px;
+    color:#ffffff62;
 }
 
 .deployModalItem {
@@ -709,15 +713,57 @@
 .deployModalItem input[type="text"]
 {
     margin:2px;
-    font-size: 16px;
+    font-size: 11px;
+    height:30px;
+
+    width:300px;
     text-align: center;
-    font-family: moon;
+    font-family: coresans;
     color:#b1b1b1;
     background: rgba(54, 54, 54, 0.144);
     border-bottom: #ffffff2d 1px solid;
     border-top:none;
     border-left:none;
     border-right:none;
+}
+
+.pasteInputContainer {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+.pasteButton {
+    padding:4px;
+    display:flex;
+    align-items: center;
+    width:22px;
+    height:100%;
+    font-size: 18px;
+    color: #00bbd4b9;
+    border: 1px solid #00bbd442;
+}
+
+.pasteButton:hover {
+    background-color: #ffffff11;
+    color: #00bbd4;
+    cursor: pointer;
+}
+
+.lpBsMsg {
+    text-align: center;
+    margin-top:15px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color:#c2c2c2;
+}
+
+.deployProjectName {
+    margin-bottom:20px;
+    font-size: 20px;
+    text-align: center;
+    color:#ffffff;
+    font-family: righteous;
 }
 
 @media only screen and (max-width: 768px) {
