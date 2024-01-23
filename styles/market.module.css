@@ -258,7 +258,8 @@
     padding:0;
     color: #dddddd;
     margin:0;
-    font-family: hamlin;
+    font-family: kanit;
+    font-size: 26px;
 }
 
 .clItemL p {
@@ -782,6 +783,15 @@
         background-color: #5a51ff;
         border-radius: 5px;
         text-align: center;
+    }
+
+    .confirmCancelBtn {
+        font-size: 12px;
+        margin:20px;
+        padding: 5px;
+        color:#000000;
+        background-color: #ccc9ff;
+        border-radius: 5px;
     }
     
     .notApprovedBtn {

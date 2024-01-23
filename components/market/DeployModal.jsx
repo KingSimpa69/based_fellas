@@ -39,8 +39,19 @@ const DeployModal = ({router,alert,deployModal,setDeployModal}) => {
     useEffect(()=>{
         const getInfo = async () => {
             try{
-                const market = new ethers.Contract(smartContract, ABI.fellas, provider);
-                setProjectName(await market.name())
+                const nft = new ethers.Contract(smartContract, ABI.fellas, provider);
+                // Check if metadata string is valid (Thanks Vesper!)
+                try {
+                    const validURI = await nft.tokenURI(1);
+                    if (validURI === "") {
+                      setErrorMessage("Invalid metadata for this contract!");
+                      return;
+                    }
+                } catch (error) {
+                  setErrorMessage("Invalid metadata for this contract!");
+                  return;
+                }
+                setProjectName(await nft.name())
                 setErrorMessage("")
                 setSanityCheck(true)
             } catch (error) {

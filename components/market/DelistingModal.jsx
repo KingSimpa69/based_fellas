@@ -59,19 +59,19 @@ const DelistingModal = ({metaType,alert,reload,setDelistingModal,delistingModal,
 
                 if(metaType === "ipfs"){
                     const ipfsGateway = 'https://ipfs.io/ipfs/';
-                    const baseUri = await nft.baseURI();
+                    const baseUri = await nft.tokenURI(id);
                     const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
-                    const metaResp = await fetch(`${metaURL}${id}`);
+                    const metaResp = await fetch(metaURL);
                     const metaData = await metaResp.json();
-                    const imgURL = metaData?.image?.replace('ipfs://', 'https://ipfs.io/ipfs/') || null;
+                    const imgURL = metaData?.image?.replace('ipfs://', 'https://ipfs.io/ipfs/') || metaData?.image;
                     img = imgURL
                 }
-
-                if(metaType === "https"){
-                    const baseUri = await nft.baseURI();
-                    const metaResp = await fetch(`${baseUri}${id}`);
+    
+                if(metaType === "http"){
+                    const baseUri = await nft.tokenURI(id);
+                    const metaResp = await fetch(baseUri);
                     const metaData = await metaResp.json();
-                    const imgURL = metaData?.image || null;
+                    const imgURL = metaData.image.startsWith("ipfs://") ? metaData.image.replace('ipfs://', 'https://ipfs.io/ipfs/') : metaData?.image;
                     img = imgURL
                 }
     

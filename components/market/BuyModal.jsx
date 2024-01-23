@@ -67,6 +67,9 @@ const BuyModal = ({metaType,alert,reload,marketContract,nftContract,id,buyModal,
             if (metaType === "ipfs"){
                 setImg(metaData.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
             }
+            if (metaType === "http"){
+                setImg(metaData.image.startsWith("ipfs://") ? metaData.image.replace('ipfs://', 'https://ipfs.io/ipfs/') : setImg(metaData.image))
+            }
         }
     }, [metaData,id])
 

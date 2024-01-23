@@ -69,12 +69,14 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
 
                 const metaDataType = await getMetaDataType()
 
+                console.log(metaDataType)
+
                 if(metaDataType === "ipfs"){
                     const ipfsGateway = 'https://ipfs.io/ipfs/';
-                    const baseUri = await nft.baseURI();
-                    const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
                     metaDataArray = await Promise.all(listedResponse.map(async (e) => {
-                        const response = await fetch(metaURL+e);
+                        const baseUri = await nft.tokenURI(e);
+                        const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
+                        const response = await fetch(metaURL);
                         return response.json();
                     }));
                 } 
@@ -86,6 +88,14 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
                         return JSON.parse(jsonString);
                     }));
                 }
+
+                if(metaDataType === "http"){
+                    metaDataArray = await Promise.all(listedResponse.map(async (e) => {
+                        const tokenURI = await nft.tokenURI(e);
+                        const response = await fetch(tokenURI)
+                        return response.json();
+                    }));
+                } 
 
 
                 setStats({

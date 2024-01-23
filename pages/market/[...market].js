@@ -17,11 +17,11 @@ const Market = ({goodToTx,alert}) => {
     const [marketContract,setMarketContract] = useState("")
     const [nftContract, setNftContract] = useState("")
     const [projectName,setProjectName] = useState("Market")
-    const provider = useEthersSigner()
     const [loading,setIsLoading] = useState(true)
     const [isValid,setIsValid] = useState(false)
     const [errormsg,setErrormsg] = useState("")
     const route = useRouter();
+    const provider = useEthersSigner()
 
     const stopLoading = async () => {
         await delay(1500)

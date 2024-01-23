@@ -141,13 +141,13 @@
     align-items: center;
     z-index: 696969;
     background: #000000d8;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(8px);
     overflow-y: hidden;
 }
 
 .modalcont {
     position: relative;
-    background-color: #1c1c1c;
+    background-color: #131313;
     width:420px;
     max-width: 96vw;
     box-shadow: 0 0 200px 5px #00bbd444;
