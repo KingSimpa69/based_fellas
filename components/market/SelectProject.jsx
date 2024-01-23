@@ -5,6 +5,7 @@ import { useState } from "react"
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import DeployModal from "./DeployModal"
 import { useRouter } from "next/router"
+import { useWindowSize } from "@/hooks/useWindowSize"
 
 const SelectProject = ({alert,chain,changePage,goodToTx}) => {
 
@@ -12,6 +13,7 @@ const SelectProject = ({alert,chain,changePage,goodToTx}) => {
     const [modalOpen,setModalOpen] = useState(false)
     const [deployModal,setDeployModal] = useState(false)
     const router = useRouter();
+    const {width} = useWindowSize();
     
 
     const dynamicModalButton = () => {
@@ -22,7 +24,7 @@ const SelectProject = ({alert,chain,changePage,goodToTx}) => {
     return(
         <>
         <DeployModal router={router} alert={alert} deployModal={deployModal} setDeployModal={setDeployModal}/>
-            <SelectContractModal chain={chain} setModalOpen={setModalOpen} modalOpen={modalOpen} changePage={changePage} />
+            <SelectContractModal width={width} chain={chain} setModalOpen={setModalOpen} modalOpen={modalOpen} changePage={changePage} />
             <div className={styles.selectProjectConatiner}>
                 <div onClick={()=>(dynamicModalButton())} className={styles.selectProjectButton}>
                     <div className={styles.spbLeft}>

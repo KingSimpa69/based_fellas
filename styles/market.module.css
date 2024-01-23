@@ -774,6 +774,15 @@
   }
 
   @media only screen and (max-width: 480px) {
+
+    .clItemL h1 {
+        padding:0;
+        color: #dddddd;
+        margin:0;
+        font-family: kanit;
+        font-size: 24px;
+    }
+
     .confirmBtn {
         font-family: hamlin;
         font-size: 12px;

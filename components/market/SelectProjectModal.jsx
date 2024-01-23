@@ -5,8 +5,9 @@ import { useEthersSigner } from "@/hooks/ethers"
 import ABI from "@/functions/abi.json"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import delay from "@/functions/delay"
+import { shortenEthAddy } from "@/functions/shortenEthAddy"
 
-const SelectContractModal = ({chain,modalOpen,setModalOpen,changePage}) => {
+const SelectContractModal = ({width,chain,modalOpen,setModalOpen,changePage}) => {
 
     const [css0,setCss0] = useState("hidden")
     const [css1,setCss1] = useState("hidden")
@@ -75,7 +76,7 @@ const SelectContractModal = ({chain,modalOpen,setModalOpen,changePage}) => {
                             <div key={index} onClick={() => { changePage(`/market/${e.contracts.market}`) }} className={styles.clItem}>
                                 <div className={styles.clItemL}>
                                     <h1>{e.name}</h1>
-                                    <p>{e.contracts.nft}</p>
+                                    <p>{width < 480 ? shortenEthAddy(e.contracts.nft) : e.contracts.nft}</p>
                                 </div>
                                 <div className={styles.clItemR}>
                                     <img src={e.image} />
@@ -89,7 +90,7 @@ const SelectContractModal = ({chain,modalOpen,setModalOpen,changePage}) => {
                                     <div key={index} onClick={() => { result[0].projectName !== "" && changePage(`/market/${e.marketContract}`) }} className={styles.clItem}>
                                         <div className={styles.clItemL}>
                                             <h1>{e.projectName}</h1>
-                                            <p>{e.nftContract}</p>
+                                            <p>{width < 480 ? shortenEthAddy(e.nftContract) : e.nftContract}</p>
                                         </div>
                                         <div className={styles.clItemR}>
                                             <FontAwesomeIcon icon="fa-solid fa-circle-question" />
