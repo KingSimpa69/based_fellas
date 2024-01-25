@@ -137,7 +137,7 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
         <DelistingModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setDelistingModal={setDelistingModal} delistingModal={delistingModal} />
         <LiquidateModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setLiquidateModal={setLiquidateModal} liquidateModal={liquidateModal} />
         <div className={styles.listings}>
-        <MarketControlz provider={provider} owner={owner} delistingModal={delistingModal} setDelistingModal={setDelistingModal} setListingModal={setListingModal} listingModal={listingModal} liquidateModal={liquidateModal} setLiquidateModal={setLiquidateModal} adminModal={adminModal} setAdminModal={setAdminModal} />
+        <MarketControlz nftContract={nftContract} provider={provider} owner={owner} delistingModal={delistingModal} setDelistingModal={setDelistingModal} setListingModal={setListingModal} listingModal={listingModal} liquidateModal={liquidateModal} setLiquidateModal={setLiquidateModal} adminModal={adminModal} setAdminModal={setAdminModal} />
         <div className={styles.listingCont}>
         {sortedListings.map(item => (
             <div onClick={() => { setBuyCrosshair(item.index); setBuyModal(!buyModal) }} key={item.index}>

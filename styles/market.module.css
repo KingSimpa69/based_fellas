@@ -885,11 +885,39 @@
     cursor: pointer;
 }
 
+.backToMarketsBtn {
+    display:flex;
+    width:100%;
+    color:#ccc9ffc4;
+    justify-content:flex-start;
+}
+
+.backToMarketsBtn p {
+    opacity:0.8;
+    font-family: kanit;
+    border: 1px solid #ccc9ffc4;
+    border-radius: 5px;
+    padding:10px 15px;
+    margin-top:5px;
+    margin-bottom:-20px;
+}
+
+.backToMarketsBtn p:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
 @media only screen and (max-width: 768px) {
     .spbLeft p {
         font-size: 28px;
     }
+
+    .backToMarketsBtn {
+        justify-content: center;
+    }
+
   }
+
 
   @media only screen and (max-width: 480px) {
 

@@ -79,6 +79,9 @@ const Market = ({goodToTx,alert}) => {
 
     return(
         <div className={styles.wrapper}>
+            <div className={styles.backToMarketsBtn}>
+                <p onClick={()=>{route.push('/market')}}>{`< `}Markets</p>
+            </div>
             <HorizontalRule />
                 <h1 className={styles.h1}>{projectName}</h1>
                 <div onClick={()=>copyToClipboard()} className={styles.ctc}><div>{"basedfellas.io/market/"+shortenEthAddy(marketContract)}</div><div className={styles.ctci}><FontAwesomeIcon icon="fa-regular fa-copy" /></div></div>

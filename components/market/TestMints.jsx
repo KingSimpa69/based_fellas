@@ -49,7 +49,7 @@ const TestMints = ({alert}) => {
             e === 1 ? await nft.price() :
             e === 2 ? null : null
             const tx = e === 0 ? await nft.mint(1,{value:mintPrice}) :
-            e === 1 ? alert('error', "Public minting not enabled") :
+            e === 1 ? await nft.publicSaleMint(1,{value:mintPrice}) :
             e === 2 ? alert('error', "Need ABI from Apex") : null
             e === 0 && alert("success","Minting...")
             const response = await tx.wait()
