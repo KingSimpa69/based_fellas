@@ -9,6 +9,10 @@ import ABI from "@/functions/abi.json"
 import Loading from "@/components/market/Loading"
 import delay from "@/functions/delay"
 import StatBox from "@/components/market/StatBox"
+import { useWindowSize } from "@/hooks/useWindowSize"
+import { shortenEthAddy } from "@/functions/shortenEthAddy"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 
 
 const Market = ({goodToTx,alert}) => {
@@ -22,6 +26,7 @@ const Market = ({goodToTx,alert}) => {
     const [errormsg,setErrormsg] = useState("")
     const route = useRouter();
     const provider = useEthersSigner()
+    const {width} = useWindowSize();
 
     const stopLoading = async () => {
         await delay(1500)
@@ -32,6 +37,11 @@ const Market = ({goodToTx,alert}) => {
         setIsValid(false)
         setIsLoading(true)
         await checkMarket(route.query.market[0], provider)
+    }
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText("basedfellas.io/market/"+marketContract);
+        alert("success","Copied!")
     }
 
     const checkMarket = async (marketAddress, currentProvider) => {
@@ -71,6 +81,8 @@ const Market = ({goodToTx,alert}) => {
         <div className={styles.wrapper}>
             <HorizontalRule />
                 <h1 className={styles.h1}>{projectName}</h1>
+                <div onClick={()=>copyToClipboard()} className={styles.ctc}><div>{"basedfellas.io/market/"+shortenEthAddy(marketContract)}</div><div className={styles.ctci}><FontAwesomeIcon icon="fa-regular fa-copy" /></div></div>
+                <div className={styles.ctcd}>Market Link</div>            
             <HorizontalRule />
             {
             loading && !isValid ? <Loading /> :
@@ -81,7 +93,7 @@ const Market = ({goodToTx,alert}) => {
             }
             <div className={loading || !isValid ? styles.hidden : styles.marketWrap }>
                 <StatBox stats={stats} />
-                <Listings alert={alert} reload={reload} stats={stats} provider={provider} isValid={isValid} setStats={setStats} stopLoading={stopLoading} projectName={projectName} marketContract={marketContract} nftContract={nftContract} />
+                <Listings width={width} alert={alert} reload={reload} stats={stats} provider={provider} isValid={isValid} setStats={setStats} stopLoading={stopLoading} projectName={projectName} marketContract={marketContract} nftContract={nftContract} />
             </div>
         </div>
     )

@@ -1,3 +1,22 @@
+@keyframes twinkling {
+    0% { opacity: 1; }
+    15% { opacity: 0.8; }
+    25% { opacity: 1; }
+    40% { opacity: 0.9; }
+    50% { opacity: 0.7; }
+    65% { opacity: 0.9; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes floatUpDown {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
 .h1 {
     text-align: center;
     text-transform: uppercase;
@@ -225,7 +244,8 @@
     user-select: none;
 }
 
-.addMarket{
+.addMarket a{
+    text-decoration: none;
     text-align: center;
     font-family: kanit;
     font-size: 10px;
@@ -237,7 +257,7 @@
     user-select: none;
 }
 
-.addMarket:hover{
+.addMarket a:hover{
     cursor: pointer;
     color:#ffffffd8;
 }
@@ -765,6 +785,104 @@
     text-align: center;
     color:#ffffff;
     font-family: righteous;
+}
+
+.ctc {
+    background-color: #0000003a;
+    margin-top:30px;
+    font-family: coresans;
+    color:#ccc9ff;
+    padding:5px 20px;
+    height:30px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border:1px solid #ccc9ff;
+    opacity:.75;
+    border-radius: 5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.ctc:hover {
+    opacity:1;
+    cursor:pointer;
+}
+
+.ctci {
+    margin-left:10px;
+    width:20px;
+}
+
+.ctcd {
+    margin-bottom: -20px;
+    margin-top:2px;
+    color:#ffffff96;
+    text-transform: uppercase;
+    font-family: moon;
+    font-size: 12px;
+}
+
+.testMintCont {
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    border-radius: 10px;
+    background-color: #131313;
+    border: 1px solid #415561;
+    width:80%;
+}
+
+.welcomeTestMint{
+    animation: twinkling 5s infinite, floatUpDown 4s ease-in-out infinite;
+    font-family: mana;
+    font-size: 16px;
+    color: #ffffffd3;
+    width:80%;
+    padding:10px;
+}
+
+.testMintContItem {
+    margin: 30px;
+    width:340px;
+    border:1px solid #ffffff1f;
+    background-color: #0a0a0a;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.testMintContItem h1{
+    color:#ffffff;
+    text-align: center;
+    font-family: moon;
+    font-size: 20px;
+}
+
+.testMintSupply {
+    font-family: coresans;
+    color:#ffffff;
+}
+
+.testMintBtn {
+    margin-bottom: 20px;
+    color:#ffffff;
+    background-color: #5a51ff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 20px;
+    font-family: righteous;
+    text-transform: uppercase;
+}
+
+.testMintBtn:hover {
+    opacity: 0.9;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 768px) {

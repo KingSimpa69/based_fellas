@@ -48,7 +48,7 @@ const SelectContractModal = ({width,chain,modalOpen,setModalOpen,changePage}) =>
     }
 
     useEffect(() => {
-        fetchVerified()
+        chain !== undefined && fetchVerified()
     }, [chain])
     
     useEffect(() => {
@@ -101,7 +101,7 @@ const SelectContractModal = ({width,chain,modalOpen,setModalOpen,changePage}) =>
                         ) : null
                     )}
                     <div className={styles.addMarket}>
-                        <h1>Add Market</h1>
+                        <a target="_blank" href={"https://github.com/KingSimpa69/markets"}><h1>Add Market</h1></a>
                     </div>
                 </div>
             </div>

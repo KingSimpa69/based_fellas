@@ -5,6 +5,13 @@
     align-items: center;
     z-index: 1;
     width:100vw;
+    margin:0;
+    height: 50px;
+    background-color: #0a1f2c6c;
+    position: sticky;
+    top:0;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #41556156;
 }
 
 .brand a {
@@ -20,8 +27,6 @@
     display:flex;
     justify-content: center;
     align-items: center;
-    margin-top:40px;
-    margin-bottom:20px;
     margin-left:10px;
     margin-right:10px;
 }
@@ -39,14 +44,15 @@
 }
 
 .purpbutton{
-    transition: all .1s ease-in-out;
+    transition: all .2s ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #ccc9ff;
-    padding:15px 40px;
+    background: linear-gradient(to right, #0252FE, #759ff8);
+    border-radius: 5px;
+    padding:5px 20px;
     font-family: righteous;
-    color:#282b30;
+    color:#ffffff;
     font-size: 16px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -55,7 +61,8 @@
 
 
 .purpbutton:hover{
-    transform: scale(1.05);
+    background: linear-gradient(to right, #759ff8, #0252FE);
+    transform: scale(1.02);
     cursor: pointer;
 }
 
