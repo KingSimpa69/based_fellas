@@ -20,7 +20,7 @@
     top:0;
     color:#c6c6c6;
     font-family: moon;
-    z-index: +1;
+    z-index: 6970;
     backdrop-filter: blur(5px);
 }
 

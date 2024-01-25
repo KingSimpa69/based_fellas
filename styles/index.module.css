@@ -1,6 +1,6 @@
 .wrapper {
     position:relative;
-    z-index: 10;
+    z-index: -1;
     font-family: 'Segoe UI Emoji', 'Segoe UI', 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
