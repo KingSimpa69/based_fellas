@@ -69,13 +69,13 @@ const ListingModal = ({metaType,alert,reload,setListingModal,listingModal,provid
 
             const owner = await nft.ownerOf(parseInt(id));
     
-            if (owner === provider.address) {
+            if (owner.toString().toLowerCase() === provider.address.toString().toLowerCase()) {
                 statusArray = [true, true, false];
             }
     
             const approved = await nft.getApproved(id);
     
-            if (approved === marketContract) {
+            if (approved.toString().toLowerCase() === marketContract.toString().toLowerCase()) {
                 statusArray = [true, true, true];
             }
 
