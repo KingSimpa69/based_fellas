@@ -20,6 +20,8 @@
     top:0;
     color:#c6c6c6;
     font-family: moon;
+    z-index: +1;
+    backdrop-filter: blur(5px);
 }
 
 .connected {

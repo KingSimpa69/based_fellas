@@ -1,6 +1,9 @@
 .wrapper {
-    background-color: #212429c0;
+    background-color: #212429d3;
     position: fixed;
+    padding-top: 20px;
+    max-height: 100vh;
+    min-height: 100vh;
     top:0;
     bottom:0;
     right:0;
@@ -10,12 +13,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(20px);
     overflow: hidden;
     --animate-duration: 0.5s;
 }
 
 .item {
+    margin:20px;
     opacity:.8;
     color:#ffffff;
     font-family: kanit;
