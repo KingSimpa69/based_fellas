@@ -72,7 +72,7 @@ const TestMints = ({alert}) => {
 
     return (
         <div className={styles.testMintCont}>
-            <h1 className={styles.welcomeTestMint}>Welcome tester! It's not easy to find nft's on testnet. Here's some that you can mint from our friends. Once you have some NFTs, please try your hardest to break the market. Find bugs, provide as much feedback as possible so we can all build the best marketplace together</h1>
+            <h1 className={styles.welcomeTestMint}>Welcome tester! It&apos;s not easy to find nft&apos;s on testnet. Here&apos;s some that you can mint from our friends. Once you have some NFTs, please try your hardest to break the market. Find bugs, provide as much feedback as possible so we can all build the best marketplace together</h1>
             <div className={styles.testMintContItem}>
                 <h1>Based Fellas</h1>
                 <img src={'/images/testmints/1.png'} />
