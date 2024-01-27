@@ -10,7 +10,7 @@ import DelistingModal from "./DelistingModal"
 import LiquidateModal from "./LiquidateModal"
 import AdminModal from "./AdminModal"
 
-const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setStats, isValid, provider }) => {
+const Listings = ({registryInfo, registry, alert, reload, marketContract, nftContract, stopLoading, setStats, isValid, provider }) => {
 
     const [listed, setListed] = useState([])
     const [prices,setPrices] = useState([])
@@ -49,74 +49,6 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
         "IDFK"
     }
 
-    const getListings = async () => {
-        try{
-            if(marketContract !== ""){
-                let metaDataArray = []
-                const market = new ethers.Contract(marketContract, ABI.market, provider);
-                const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
-                const ownerQuery = await nft.owner();
-                ownerQuery && setOwner(ownerQuery)
-                const volume = await market.volume()
-                const listedResponse = await market.getListedTokens()
-                const symbol = await nft.symbol();
-                const supply = await nft.totalSupply();
-                const lpBal = await provider.provider.getBalance(marketContract)
-                const priceArray = await Promise.all(listedResponse.map(async (e) => {
-                    return await market.price(e);
-                }));
-                let prices = priceArray.map(bn => parseInt(bn));
-
-                const metaDataType = await getMetaDataType()
-
-                console.log(metaDataType)
-
-                if(metaDataType === "ipfs"){
-                    const ipfsGateway = 'https://ipfs.io/ipfs/';
-                    metaDataArray = await Promise.all(listedResponse.map(async (e) => {
-                        const baseUri = await nft.tokenURI(e);
-                        const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
-                        const response = await fetch(metaURL);
-                        return response.json();
-                    }));
-                } 
-                
-                if(metaDataType === "onchain"){
-                    metaDataArray = await Promise.all(listedResponse.map(async (e) => {
-                        const metaString = await nft.tokenURI(parseInt(e))
-                        const jsonString = atob(metaString.split(',')[1]);
-                        return JSON.parse(jsonString);
-                    }));
-                }
-
-                if(metaDataType === "http"){
-                    metaDataArray = await Promise.all(listedResponse.map(async (e) => {
-                        const tokenURI = await nft.tokenURI(e);
-                        const response = await fetch(tokenURI)
-                        return response.json();
-                    }));
-                } 
-
-
-                setStats({
-                    totalVol: volume,
-                    listed: listedResponse.length,
-                    floor: Math.min(...prices),
-                    symbol: symbol,
-                    supply: supply,
-                    lpBal: lpBal
-                })
-
-                setMetaData(metaDataArray)
-                setListed(listedResponse)
-                setPrices(priceArray)
-                setUpdateComplete(true);
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
     useEffect(() => {
         if (updateComplete) {
             stopLoading();
@@ -124,6 +56,71 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
     }, [updateComplete]);
 
     useEffect(() => {
+        const getListings = async () => {
+            try{
+                if(marketContract !== ""){
+                    let metaDataArray = []
+                    const market = new ethers.Contract(marketContract, ABI.market, provider);
+                    const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
+                    const ownerQuery = await nft.owner();
+                    ownerQuery && setOwner(ownerQuery)
+                    const volume = await market.volume()
+                    const listedResponse = await market.getListedTokens()
+                    const symbol = await nft.symbol();
+                    const supply = await nft.totalSupply();
+                    const lpBal = await provider.provider.getBalance(marketContract)
+                    const priceArray = await Promise.all(listedResponse.map(async (e) => {
+                        return await market.price(e);
+                    }));
+                    let prices = priceArray.map(bn => parseInt(bn));
+    
+                    const metaDataType = await getMetaDataType()
+    
+                    if(metaDataType === "ipfs"){
+                        const ipfsGateway = 'https://ipfs.io/ipfs/';
+                        metaDataArray = await Promise.all(listedResponse.map(async (e) => {
+                            const baseUri = await nft.tokenURI(e);
+                            const metaURL = ipfsGateway + baseUri.replace('ipfs://', '');
+                            const response = await fetch(metaURL);
+                            return response.json();
+                        }));
+                    } 
+                    
+                    if(metaDataType === "onchain"){
+                        metaDataArray = await Promise.all(listedResponse.map(async (e) => {
+                            const metaString = await nft.tokenURI(parseInt(e))
+                            const jsonString = atob(metaString.split(',')[1]);
+                            return JSON.parse(jsonString);
+                        }));
+                    }
+    
+                    if(metaDataType === "http"){
+                        metaDataArray = await Promise.all(listedResponse.map(async (e) => {
+                            const tokenURI = await nft.tokenURI(e);
+                            const response = await fetch(tokenURI)
+                            return response.json();
+                        }));
+                    } 
+    
+    
+                    setStats({
+                        totalVol: volume,
+                        listed: listedResponse.length,
+                        floor: Math.min(...prices),
+                        symbol: symbol,
+                        supply: supply,
+                        lpBal: lpBal
+                    })
+    
+                    setMetaData(metaDataArray)
+                    setListed(listedResponse)
+                    setPrices(priceArray)
+                    setUpdateComplete(true);
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
         setUpdateComplete(false)
         getListings()
     }, [isValid,provider])
@@ -131,7 +128,7 @@ const Listings = ({alert, reload, marketContract, nftContract, stopLoading, setS
 
     return( 
         <>
-        <AdminModal alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} adminModal={adminModal} setAdminModal={setAdminModal}/>
+        <AdminModal registryInfo={registryInfo} registry={registry} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} adminModal={adminModal} setAdminModal={setAdminModal}/>
         <BuyModal metaType={metaType} alert={alert} reload={reload} listed={listed} marketContract={marketContract} nftContract={nftContract} provider={provider} price={prices[parseInt(buyCrosshair)]} metaData={metaData[parseInt(buyCrosshair)]} buyModal={buyModal} setBuyModal={setBuyModal} id={parseInt(buyCrosshair)}/>
         <ListingModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setListingModal={setListingModal} listingModal={listingModal} />
         <DelistingModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setDelistingModal={setDelistingModal} delistingModal={delistingModal} />

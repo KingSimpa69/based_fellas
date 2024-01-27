@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import { ethers } from "ethers"
 import { useEthersSigner } from "@/hooks/ethers"
 import ABI from "@/functions/abi.json"
+import REGISTRY from "@/registry.json"
 import Loading from "@/components/market/Loading"
 import delay from "@/functions/delay"
 import StatBox from "@/components/market/StatBox"
@@ -20,6 +21,8 @@ const Market = ({goodToTx,alert}) => {
     const [stats,setStats] = useState({})
     const [marketContract,setMarketContract] = useState("")
     const [nftContract, setNftContract] = useState("")
+    const [registry,setRegistry] = useState(false)
+    const [registryInfo,setRegistryInfo] = useState(["","","","","","","","",""])
     const [projectName,setProjectName] = useState("Market")
     const [loading,setIsLoading] = useState(true)
     const [isValid,setIsValid] = useState(false)
@@ -51,6 +54,28 @@ const Market = ({goodToTx,alert}) => {
             const projectName = await market.projectName();
             const nftContract = await market.nftContract();
             if (projectName && nftContract) {
+                try{
+                    const { chainId } = await currentProvider.provider.getNetwork()
+                    const regContract = REGISTRY[parseInt(await chainId)]
+                    const registry = new ethers.Contract(regContract, ABI.mreg, currentProvider);
+                    const marketid = await registry.getMarketIdByContract(marketAddress)
+                    const marketData = await registry.getMarketData(parseInt(marketid))
+                    if (parseInt(marketData[0]) !== 0) {
+                        setRegistryInfo(marketData)
+                        setRegistry(true)
+                        setMarketContract(marketAddress)
+                        setNftContract(nftContract)
+                        setProjectName(marketData[2]+ " Market")
+                        setIsValid(true)
+                        return
+                    } else {
+                        setRegistry(false)
+                        console.log("No market match in registry!")
+                    }
+                } catch (error) {
+                    setRegistry(false)
+                    console.log(error)
+                }
                 setMarketContract(marketAddress);
                 setNftContract(nftContract);
                 setProjectName(projectName + " Market");
@@ -74,7 +99,7 @@ const Market = ({goodToTx,alert}) => {
             }
         };
         setIsLoading(true)
-        fetchMarket();
+        provider !== undefined && fetchMarket();
     }, [provider]);
 
     return(
@@ -84,8 +109,16 @@ const Market = ({goodToTx,alert}) => {
             </div>
             <HorizontalRule />
                 <h1 className={styles.h1}>{projectName}</h1>
+                <div className={registryInfo[3] === "" ? styles.hidden : styles.marketDescription}>{registryInfo[3]}</div>
+                <div className={styles.marketSocials}>
+                    <a target="_blank" className={registryInfo[4] === "" ? styles.hidden : styles.marketLink} href={registryInfo[4]!== "" ? registryInfo[4] : "https://basefellas.io"}><FontAwesomeIcon icon="fa-solid fa-globe" /></a>
+                    <a target="_blank" className={registryInfo[5] === "" ? styles.hidden : styles.marketLink} href={registryInfo[5]!== "" ? registryInfo[5] : "https://basefellas.io"}><FontAwesomeIcon icon="fa-brands fa-x-twitter" /></a>
+                    <a target="_blank" className={registryInfo[6] === "" ? styles.hidden : styles.marketLink} href={registryInfo[6]!== "" ? registryInfo[6] : "https://basefellas.io"}><FontAwesomeIcon icon="fa-brands fa-discord" /></a>
+                    <a target="_blank" className={registryInfo[7] === "" ? styles.hidden : styles.marketLink} href={registryInfo[7]!== "" ? registryInfo[7] : "https://basefellas.io"}><FontAwesomeIcon icon="fa-brands fa-telegram" /></a>
+                    <a target="_blank" className={registryInfo[8] === "" ? styles.hidden : styles.marketLink} href={registryInfo[8]!== "" ? registryInfo[8] : "https://basefellas.io"}><FontAwesomeIcon icon="fa-brands fa-github" /></a>
+                </div>  
                 <div onClick={()=>copyToClipboard()} className={styles.ctc}><div>{"basedfellas.io/market/"+shortenEthAddy(marketContract)}</div><div className={styles.ctci}><FontAwesomeIcon icon="fa-regular fa-copy" /></div></div>
-                <div className={styles.ctcd}>Market Link</div>            
+                <div className={styles.ctcd}>Market Link</div>
             <HorizontalRule />
             {
             loading && !isValid ? <Loading /> :
@@ -96,7 +129,7 @@ const Market = ({goodToTx,alert}) => {
             }
             <div className={loading || !isValid ? styles.hidden : styles.marketWrap }>
                 <StatBox stats={stats} />
-                <Listings width={width} alert={alert} reload={reload} stats={stats} provider={provider} isValid={isValid} setStats={setStats} stopLoading={stopLoading} projectName={projectName} marketContract={marketContract} nftContract={nftContract} />
+                <Listings registry={registry} registryInfo={registryInfo} width={width} alert={alert} reload={reload} stats={stats} provider={provider} isValid={isValid} setStats={setStats} stopLoading={stopLoading} projectName={projectName} marketContract={marketContract} nftContract={nftContract} />
             </div>
         </div>
     )
