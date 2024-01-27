@@ -321,7 +321,7 @@
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-    z-index: +5;
+    z-index: 0;
 }
 
 .statCont .statbox:not(:last-child) {
@@ -927,7 +927,6 @@
     margin-bottom:0;
     margin-top:20px;
     color: #ffffff;
-    z-index: +1;
     font-size: 14px;
     text-align: center;
 }
