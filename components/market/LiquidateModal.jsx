@@ -78,7 +78,7 @@ const LiquidateModal = ({setWriting,metaType,alert,reload,setLiquidateModal,liqu
     
             const approved = await nft.getApproved(id);
     
-            if (approved === marketContract) {
+            if (approved.toString().toLowerCase() === marketContract.toString().toLowerCase()) {
                 statusArray = [true, true, true];
             }
 

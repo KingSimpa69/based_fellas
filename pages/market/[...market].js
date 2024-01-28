@@ -92,6 +92,7 @@ const Market = ({goodToTx,alert,setWriting}) => {
     
     useEffect(() => {
         const fetchMarket = async () => {
+            await delay(420)
             if (provider !== undefined && goodToTx && route.query.market) {
                 const currentProvider = provider;
                 ethers.isAddress(route.query.market[0]) ? await checkMarket(route.query.market[0], currentProvider) : stopLoading()
@@ -103,7 +104,7 @@ const Market = ({goodToTx,alert,setWriting}) => {
         };
         setIsLoading(true)
         fetchMarket();
-    }, [provider]);
+    }, [provider,route]);
 
     useEffect(() => {
         const pullOwned = async () => {
