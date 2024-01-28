@@ -54,7 +54,7 @@ const SelectContractModal = ({width,chain,modalOpen,setModalOpen,changePage}) =>
                 });
                 const marketDataArray = await Promise.all(marketDataPromises);
                 marketDataArray.sort((a, b) => b.volume - a.volume);
-                setResult(marketDataArray.length > 0 ? marketDataArray : [{ projectName: "", nftContract: "No markets found" }]);
+                setResult(marketDataArray.length > 0 ? marketDataArray : [{ projectName: "ERROR", marketContract: "No markets found", volume: "No markets found"}]);
                 setLoading(false)
             } catch (error) {
                 setResult([{
@@ -96,7 +96,7 @@ const SelectContractModal = ({width,chain,modalOpen,setModalOpen,changePage}) =>
                     {loading && <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"25px",marginBottom:"25px"}}><Loading /></div>}
                     {search === "" && chain ? (markets.map((e,index) => {
                         return (
-                            <div key={index} onClick={() => { changePage(`/market/${e.contracts.market}`) }} className={styles.clItem}>
+                            <div key={index} onClick={() => {changePage(`/market/${e.contracts.market}`) }} className={styles.clItem}>
                                 <div className={styles.clItemL}>
                                     <h1>{e.name}</h1>
                                     <p>{width < 480 ? shortenEthAddy(e.contracts.nft) : e.contracts.nft}</p>
@@ -110,10 +110,10 @@ const SelectContractModal = ({width,chain,modalOpen,setModalOpen,changePage}) =>
                         result.length > 0 ? (
                             result.map((e,index)=>{
                                 return(
-                                    <div key={index} onClick={() => { e.projectName !== "" && changePage(`/market/${e.marketContract}`) }} className={styles.clItem}>
+                                    <div key={index} onClick={() => { e.projectName !== "" && e.marketContract !== "No markets found" && changePage(`/market/${e.marketContract}`) }} className={styles.clItem}>
                                         <div className={styles.clItemL}>
                                             <h1 className={styles.projectName}>{e.projectName}  {checkIfVerified(e.marketContract) ? <div className={styles.verified}>VERIFIED</div> : null}</h1>
-                                            <div className={styles.volumeInList}>Volume: <div className={styles.volumeInListValue}>{formatETH(parseFloat(e.volume)/10**18)} ETH</div></div>
+                                            {e.volume !== "" && e.volume !== "No markets found" && <div className={styles.volumeInList}>Volume: <div className={styles.volumeInListValue}>{formatETH(parseFloat(e.volume)/10**18)} ETH</div></div>}
                                             <p>{width < 480 ? shortenEthAddy(e.nftContract) : e.marketContract}</p>
                                         </div>
                                         <div className={styles.clItemR}>

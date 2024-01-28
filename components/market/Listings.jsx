@@ -127,12 +127,6 @@ const Listings = ({setWriting, owned, setShowWallet, showWallet, registryInfo, r
         getListings()
     }, [isValid,provider])
 
-    useEffect(() => {
-        console.log(owned)
-    }, [owned])
-    
-    
-
     return( 
         <>
         <AdminModal setWriting={setWriting} registryInfo={registryInfo} registry={registry} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} adminModal={adminModal} setAdminModal={setAdminModal}/>

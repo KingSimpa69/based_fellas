@@ -3,6 +3,7 @@ import { ethers } from "ethers"
 import ABI from "@/functions/abi.json"
 import { useEffect, useState } from "react"
 import { shortenEthAddy } from "@/functions/shortenEthAddy"
+import formatETH from "@/functions/formatETH"
 import delay from "@/functions/delay"
 
 const BuyModal = ({setWriting,metaType,alert,reload,marketContract,nftContract,id,buyModal,setBuyModal,metaData,price,provider,listed}) => {
@@ -90,7 +91,7 @@ const BuyModal = ({setWriting,metaType,alert,reload,marketContract,nftContract,i
                             <p className={styles.buyModalKey}>Current Owner</p>
                         </div>
                         <div className={styles.confirmModalInfoItem}>
-                            <p className={styles.buyModalValue}>{parseFloat(price)/10**18} ETH</p>
+                            <p className={styles.buyModalValue}>{formatETH(parseFloat(price)/10**18)} ETH</p>
                             <p className={styles.buyModalKey}>Listing Price</p>
                         </div>
                     </div>
