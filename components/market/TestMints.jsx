@@ -49,8 +49,8 @@ const TestMints = ({setWriting,alert}) => {
             e === 1 ? await nft.price() :
             e === 2 ? null : null
             setWriting(true)
-            const tx = e === 0 ? await nft.mint(1,{value:mintPrice}) :
-            e === 1 ? await nft.publicSaleMint(1,{value:mintPrice}) :
+            const tx = e === 0 ? await nft.mint(1,{value:mintPrice,gasLimit:100000}) :
+            e === 1 ? await nft.publicSaleMint(1,{value:mintPrice,gasLimit:100000}) :
             e === 2 ? alert('error', "Need ABI from Apex") : null
             e === 0 && alert("success","Minting...")
             const response = await tx.wait()
