@@ -39,6 +39,13 @@
   src: url(../fonts/hamlin.ttf);
 }
 
+/* Clean fonts for buttons */
+
+@font-face {
+  font-family: inter;
+  src: url(../fonts/inter.ttf);
+}
+
 
 @keyframes lds-ripple {
   0% {

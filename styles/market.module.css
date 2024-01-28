@@ -383,14 +383,14 @@
 
 .confirmBuyModal h1 {
     background-color: #131313;
-    font-family: moon;
+    font-family: inter;
     font-size: 20px;
-    font-weight: lighter;
-    color:#ffffff92;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color:#ffffffd8;
     border-bottom: 1px solid #2e2e2e;
-    padding: 5px 0px;
-    margin: 0;
     display:flex;
+    padding-bottom: 10px;
     justify-content: center;
     align-items: center;
     -webkit-user-select: none;
@@ -446,22 +446,6 @@
     justify-content: center;
 }
 
-.confirmModalInfoItem p:first-child {
-    font-family: coresans;
-    color:#ffffff;
-    font-size: 14px;
-    padding:0;
-    margin: 0;
-}
-
-.confirmModalInfoItem p:last-child {
-    font-family: kanit;
-    color:#ffffff;
-    font-size: 16px;
-    padding:0;
-    margin: 0;
-}
-
 .confirmModalImage {
     color:#ffffffc2;
     margin-left:30px;
@@ -502,9 +486,12 @@
 }
 
 .confirmCancelBtn {
+    font-family: inter;
+    font-size: 14px;
+    font-weight: 600;
     margin:20px;
-    color:#000000;
-    padding: 5px;
+    color:#000000d0;
+    padding: 10px 30px;
     background-color: #ccc9ff;
     border-radius: 5px;
 }
@@ -520,9 +507,11 @@
 }
 
 .confirmBtn {
-    font-family: hamlin;
+    font-family: inter;
+    font-weight: 600;
+    font-size: 14px;
     margin:20px;
-    padding: 5px;
+    padding: 10px 30px;
     color:#ffffff;
     background-color: #5a51ff;
     border-radius: 5px;
@@ -548,12 +537,16 @@
 }
 
 .marketControlz p{
-    margin:5px;
-    padding: 5px;
+    opacity:0.9;
+    margin:10px;
+    padding: 10px 30px;
     color:#ffffff;
     background-color: #5a51ff;
     border-radius: 5px;
-    font-family: hamlin;
+    font-weight:600;
+    font-size: 14px;
+    font-family: inter;
+    background-color: #766fec;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -562,26 +555,30 @@
 }
 
 .marketControlz p:hover {
-    opacity:0.9;
+    opacity:1;
     cursor: pointer;
 }
 
 .approveButton {
     margin:5px;
-    padding: 5px;
+    font-weight:600;
+    font-family: inter;
+    font-size: 14px;
+    background-color: #766fec;
+    padding:10px 30px;
     color:#ffffff;
     background-color: #5a51ff;
     border-radius: 5px;
-    font-family: hamlin;
-    width: 150px;
 }
 
 .notApprovedBtn {
     text-align: center;
     margin:20px;
-    padding: 5px;
+    font-weight:600;
+    font-family: inter;
+    font-size: 14px;
+    padding:10px 30px;
     color:#ffffff;
-    font-family: hamlin;
     background-color: #5a51ff86;
     border-radius: 5px;
     -webkit-user-select: none;
@@ -719,12 +716,13 @@
 .adminExitButton {
     text-align: center;
     margin:10px;
-    padding: 5px;
+    padding: 10px 30px;
     color:#ffffff;
     background-color: #5a51ff;
     border-radius: 5px;
-    font-family: hamlin;
-    width: 120px;
+    font-family: inter;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .adminExitButton:hover {
@@ -885,12 +883,12 @@
 .testMintBtn {
     margin-bottom: 20px;
     color:#ffffff;
-    background-color: #5a51ff;
+    font-size: 16px;
+    font-weight:700;
+    font-family: inter;
+    background-color: #766fec;
     border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 20px;
-    font-family: righteous;
-    text-transform: uppercase;
+    padding: 10px 30px;
 }
 
 .testMintBtn:hover {

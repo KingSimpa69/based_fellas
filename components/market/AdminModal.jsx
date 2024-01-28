@@ -152,7 +152,12 @@ const AdminModal = ({registryInfo, registry,provider,alert,setAdminModal,adminMo
     }, [adminModal])
 
     useEffect(() => {
-        console.log(registryInfo)
+        const test = async () => {
+            const result = await fetch("https://base-sepolia.blockscout.com/api/v2/tokens/0x91164C6e24CCbDFB82141Ca9EeC4EDaaE22d2114/instances?holder_address_hash=0x93A521A4c6880B290CAb43d192C35058634B00Fc")
+            const formatted = await result.json();
+            console.log(formatted.items)
+        }
+        test()
     }, [registryInfo])
     
     
