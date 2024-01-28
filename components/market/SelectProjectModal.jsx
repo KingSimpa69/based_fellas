@@ -124,10 +124,10 @@ const SelectContractModal = ({width,chain,modalOpen,setModalOpen,changePage}) =>
                             })
                         ) : null
                     )}
-                    <div className={styles.addMarket}>
+                </div>
+                <div className={styles.addMarket}>
                         <a target="_blank" href={"https://github.com/KingSimpa69/markets"}><h1>Verify A Market</h1></a>
                     </div>
-                </div>
             </div>
         </div>
     )

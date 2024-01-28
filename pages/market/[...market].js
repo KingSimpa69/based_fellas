@@ -95,13 +95,14 @@ const Market = ({goodToTx,alert,setWriting}) => {
             if (provider !== undefined && goodToTx && route.query.market) {
                 const currentProvider = provider;
                 ethers.isAddress(route.query.market[0]) ? await checkMarket(route.query.market[0], currentProvider) : stopLoading()
-            } else if (provider === undefined) {
+            } if (provider === undefined) {
                 setErrormsg("Please connect a wallet")
+                setIsValid(false);
                 stopLoading()
             }
         };
         setIsLoading(true)
-        provider !== undefined && fetchMarket();
+        fetchMarket();
     }, [provider]);
 
     useEffect(() => {
@@ -120,7 +121,7 @@ const Market = ({goodToTx,alert,setWriting}) => {
                 console.log(error);
             }
         };
-        nftContract !== "" && ethers.isAddress(nftContract) && provider.address && ethers.isAddress(provider.address) && pullOwned();
+        nftContract !== "" && ethers.isAddress(nftContract) && provider && provider.address && ethers.isAddress(provider.address) && pullOwned();
     }, [nftContract, provider]);
     
 

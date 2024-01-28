@@ -195,8 +195,6 @@
     background-color: #131313;
     width:480px;
     max-width: 96%;
-    max-height: 96vh;
-    height:600px;
     box-shadow: 0 0 200px 5px #00bbd444;
 }
 
@@ -206,7 +204,7 @@
 
 .contractSearchCont {
     border-bottom: 1px solid #2e2e2e;
-    height:75px;
+    height:80px;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -216,10 +214,11 @@
 {
     font-size: 14px;
     text-align: center;
-    padding:5px;
+    padding:10px;
     border-radius: 10px;
-    font-family: moon;
-    color:#b1b1b1;
+    font-family: inter;
+    font-weight: 300;
+    color:#d3d3d3;
     background: #0c0c0c;
     border: none;
 }
@@ -228,8 +227,11 @@
     display:flex;
     flex-direction: column;
     border: none;
+    height:400px;
     border-color: transparent;
     background-color: #ffffff00;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .clItem {
@@ -239,8 +241,7 @@
     width:100%;
     justify-content: space-between;
     align-items: center;
-    padding-bottom:15px;
-    padding-top:10px;
+    height:100px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -248,17 +249,22 @@
     user-select: none;
 }
 
-.addMarket a{
-    text-decoration: none;
-    text-align: center;
-    font-family: kanit;
-    font-size: 10px;
-    color:#ffffff9c;
+.addMarket {
+    margin-top: -1px;
+    border-top: #2e2e2e 1px solid;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+.addMarket a {
+    text-decoration: none;
+    text-align: center;
+    font-family: kanit;
+    font-size: 10px;
+    color:#ffffff9c;
 }
 
 .addMarket a:hover{
@@ -283,7 +289,7 @@
     color: #dddddd;
     margin:0;
     font-family: kanit;
-    font-size: 26px;
+    font-size: 24px;
 }
 
 .clItemL p {
