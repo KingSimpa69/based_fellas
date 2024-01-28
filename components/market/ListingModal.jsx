@@ -89,10 +89,9 @@ const ListingModal = ({setWriting, id, setId, metaType,alert,reload,setListingMo
         try{
             let txLog = {}
             const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
-            const tx = await nft.approve(marketContract,id)
             setWriting(true)
+            const tx = await nft.approve(marketContract,id)
             const response = await tx.wait()
-            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = nft.interface.parseLog(log))
@@ -100,7 +99,10 @@ const ListingModal = ({setWriting, id, setId, metaType,alert,reload,setListingMo
             txLog.name === "Approval" && alert("success","Approval successful")
             await handleEntry()
         } catch (error) {
+            setWriting(false)
             console.log(error)
+        } finally {
+            setWriting(false)
         }
     }
 
@@ -108,22 +110,23 @@ const ListingModal = ({setWriting, id, setId, metaType,alert,reload,setListingMo
         try{
             let txLog = {}
             const market = new ethers.Contract(marketContract, ABI.market, provider);
-            const tx = await market.list(id,parseEther(price))
             setWriting(true)
+            const tx = await market.list(id,parseEther(price))
             const response = await tx.wait()
-            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = market.interface.parseLog(log))
             }
             txLog.name === "Listed" && alert("success","Listing successful")
             setListingModal(!listingModal)
+            setWriting(false)
             await delay(450)
             setPrice("")
             setId("")
             setStatus([false,false,false,false])
             reload();
         } catch (error) {
+            setWriting(false)
             console.log(error)
         }
     }

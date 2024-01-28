@@ -178,16 +178,17 @@ button:focus {
 }
 
 .txContainer{
+  box-shadow: 0 0 200px 20px #00bbd456;
   display:flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  height: 200px;
+  width: 80px;
+  height: 80px;
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 8px;
+  border: 1px solid #ffffff15;
   text-align: center;
 }
 

@@ -65,14 +65,16 @@ const AdminModal = ({setWriting,registryInfo, registry,provider,alert,setAdminMo
     const tax = async (target,addy,tax) => {
         try{
             const market = new ethers.Contract(marketContract, ABI.market, provider);
-            const tx = await market.setTax(target,addy,tax)
             setWriting(true)
+            const tx = await market.setTax(target,addy,tax)
             const response = await tx.wait()
-            setWriting(false)
             response && alert("success","Tax set")
         } catch (error) {
+            setWriting(false)
             alert("error","Error")
             //console.log(error)
+        }   finally {
+            setWriting(false)
         }
     }
 
@@ -82,12 +84,13 @@ const AdminModal = ({setWriting,registryInfo, registry,provider,alert,setAdminMo
             const tx = await market.transferOwnership(addy)
             setWriting(true)
             const response = await tx.wait()
-            setWriting(false)
             response && alert("success","Ownership transfered")
             setAdminModal(!adminModal)
+            setWriting(false)
             await delay(450)
             reload()
         } catch (error) {
+            setWriting(false)
             alert("error","Error")
             //console.log(error)
         }
@@ -107,14 +110,15 @@ const AdminModal = ({setWriting,registryInfo, registry,provider,alert,setAdminMo
             const regContract = REGISTRY[parseInt(await chainId)]
             const reg = new ethers.Contract(regContract, ABI.mreg, provider);
             const regId = await reg.getMarketIdByContract(marketContract)
-            const tx = await reg[regFucktion](parseInt(regId),value)
             setWriting(true)
+            const tx = await reg[regFucktion](parseInt(regId),value)
             const response = await tx.wait()
-            setWriting(false)
             response && alert("success",`${key} updated!`)
+            setWriting(false)
             await delay(450)
             reload()
         } catch (error) {
+            setWriting(false)
             console.log(error)
             alert("error","Error")
         }
@@ -126,14 +130,15 @@ const AdminModal = ({setWriting,registryInfo, registry,provider,alert,setAdminMo
             const regContract = REGISTRY[parseInt(await chainId)]
             const reg = new ethers.Contract(regContract, ABI.mreg, provider);
             const regFee = await reg.registryFee()
-            const tx = await reg.addMarket(nftContract,marketContract,{value:parseInt(regFee).toString()})
             setWriting(true)
+            const tx = await reg.addMarket(nftContract,marketContract,{value:parseInt(regFee).toString()})
             const response = await tx.wait()
-            setWriting(false)
             response && alert("success","Added to the registry!")
+            setWriting(false)
             await delay(450)
             reload()
         } catch (error) {
+            setWriting(false)
             console.log(error)
         }
     }

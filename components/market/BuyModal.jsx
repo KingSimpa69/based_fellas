@@ -17,10 +17,9 @@ const BuyModal = ({setWriting,metaType,alert,reload,marketContract,nftContract,i
         try{
             let txLog = {}
             const market = new ethers.Contract(marketContract, ABI.market, provider);
-            const tx = await market.buy(listed[i],{value:price})
             setWriting(true)
+            const tx = await market.buy(listed[i],{value:price})
             const response = await tx.wait()
-            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = market.interface.parseLog(log))
@@ -28,9 +27,11 @@ const BuyModal = ({setWriting,metaType,alert,reload,marketContract,nftContract,i
             txLog.name === "Sold" ? alert("success","Purchase successful") :
             txLog.name === "Delisted" ? (alert("error","The item was listed but approval revoked"),alert("info","Your ETH has been returned")) : null
             setBuyModal(!buyModal)
+            setWriting(false)
             await delay(450)
             reload()
         } catch (error) {
+            setWriting(false)
             console.log(error)
         }
     }

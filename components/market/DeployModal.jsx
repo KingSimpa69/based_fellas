@@ -24,15 +24,16 @@ const DeployModal = ({router,alert,deployModal,setDeployModal,setWriting}) => {
     const deploy = async () => {
         try{
             const contractFactory = new ethers.ContractFactory(ABI.market,BYTECODE.market,provider)
-            const deployedContract = await contractFactory.deploy(projectName,smartContract,{value:5000000000000000});
             setWriting(true)
+            const deployedContract = await contractFactory.deploy(projectName,smartContract,{value:5000000000000000});
             await deployedContract.waitForDeployment()
-            setWriting(false)
             alert("success","Market deployed")
             setDeployModal(!deployModal)
+            setWriting(false)
             await delay(450)
             router.push(`/market/${deployedContract.target}`)
         } catch (error) {
+            setWriting(false)
             alert("error","error")
             //console.log(error)
         }
