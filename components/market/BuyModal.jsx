@@ -83,12 +83,12 @@ const BuyModal = ({metaType,alert,reload,marketContract,nftContract,id,buyModal,
                     </div>
                     <div className={styles.confirmModalInfo}>
                         <div className={styles.confirmModalInfoItem}>
-                            <p>{owner}</p>
-                            <p>Current Owner</p>
+                            <p className={styles.buyModalValue}>{owner}</p>
+                            <p className={styles.buyModalKey}>Current Owner</p>
                         </div>
                         <div className={styles.confirmModalInfoItem}>
-                            <p>{parseFloat(price)/10**18} ETH</p>
-                            <p>Listing Price</p>
+                            <p className={styles.buyModalValue}>{parseFloat(price)/10**18} ETH</p>
+                            <p className={styles.buyModalKey}>Listing Price</p>
                         </div>
                     </div>
                 </div>

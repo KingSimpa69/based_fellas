@@ -1,7 +1,7 @@
 import styles from "@/styles/market.module.css"
 import {useEffect, useState} from 'react'
 
-const MarketControlz = ({nftContract,owner,provider,delistingModal,setDelistingModal,listingModal,setListingModal,liquidateModal,setLiquidateModal,adminModal,setAdminModal}) => {
+const MarketControlz = ({setShowWallet, showWallet, owner,provider,delistingModal,setDelistingModal,listingModal,setListingModal,liquidateModal,setLiquidateModal,adminModal,setAdminModal}) => {
 
     const [isAdmin,setIsAdmin] = useState(false)
     const [chain,setChain] = useState(0)
@@ -33,7 +33,7 @@ const MarketControlz = ({nftContract,owner,provider,delistingModal,setDelistingM
 
     return(
         <div className={styles.marketControlz}>
-            <p className={chain!==0?null:styles.hidden}><a style={{textDecoration:"none",color:"#ffffff"}} target="_blank" href={`${blockExplorers[chain]}/token/${nftContract}?tab=inventory&holder_address_hash=${provider?.address.toString()}`}>Wallet</a></p>
+            <p onClick={()=>setShowWallet(!showWallet)} className={chain!==0?null:styles.hidden}>{showWallet?"Market":"Wallet"}</p>
             <p onClick={()=>setListingModal(!listingModal)}>List</p>
             <p onClick={()=>setDelistingModal(!delistingModal)}>Delist</p>
             <p onClick={()=>setLiquidateModal(!liquidateModal)}>Liquidate</p>

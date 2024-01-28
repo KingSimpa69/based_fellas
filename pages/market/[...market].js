@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const Market = ({goodToTx,alert}) => {
 
+    const [owned,setOwned] = useState([])
     const [stats,setStats] = useState({})
     const [marketContract,setMarketContract] = useState("")
     const [nftContract, setNftContract] = useState("")
@@ -26,6 +27,7 @@ const Market = ({goodToTx,alert}) => {
     const [projectName,setProjectName] = useState("Market")
     const [loading,setIsLoading] = useState(true)
     const [isValid,setIsValid] = useState(false)
+    const [showWallet,setShowWallet] = useState(false)
     const [errormsg,setErrormsg] = useState("")
     const route = useRouter();
     const provider = useEthersSigner()
@@ -102,6 +104,26 @@ const Market = ({goodToTx,alert}) => {
         provider !== undefined && fetchMarket();
     }, [provider]);
 
+    useEffect(() => {
+        const pullOwned = async () => {
+            try {
+                let uniqueToken = null;
+                let owned = [];
+                do {
+                    const result = await fetch(`https://base-sepolia.blockscout.com/api/v2/tokens/${nftContract}/instances?holder_address_hash=${provider.address}${uniqueToken ? `&unique_token=${uniqueToken}` : ''}`);
+                    const formatted = await result.json();
+                    owned = owned.concat(formatted.items);
+                    uniqueToken = formatted.next_page_params?.unique_token;
+                } while (uniqueToken !== undefined);
+                setOwned(owned);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        nftContract !== "" && ethers.isAddress(nftContract) && provider.address && ethers.isAddress(provider.address) && pullOwned();
+    }, [nftContract, provider]);
+    
+
     return(
         <div className={styles.wrapper}>
             <div className={styles.backToMarketsBtn}>
@@ -129,7 +151,7 @@ const Market = ({goodToTx,alert}) => {
             }
             <div className={loading || !isValid ? styles.hidden : styles.marketWrap }>
                 <StatBox stats={stats} />
-                <Listings registry={registry} registryInfo={registryInfo} width={width} alert={alert} reload={reload} stats={stats} provider={provider} isValid={isValid} setStats={setStats} stopLoading={stopLoading} projectName={projectName} marketContract={marketContract} nftContract={nftContract} />
+                <Listings owned={owned} setShowWallet={setShowWallet} showWallet={showWallet} registry={registry} registryInfo={registryInfo} width={width} alert={alert} reload={reload} stats={stats} provider={provider} isValid={isValid} setStats={setStats} stopLoading={stopLoading} projectName={projectName} marketContract={marketContract} nftContract={nftContract} />
             </div>
         </div>
     )

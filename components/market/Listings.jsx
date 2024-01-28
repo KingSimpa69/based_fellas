@@ -9,9 +9,11 @@ import MarketControlz from "./MarketControlz"
 import DelistingModal from "./DelistingModal"
 import LiquidateModal from "./LiquidateModal"
 import AdminModal from "./AdminModal"
+import BlockScoutItem from "./BlockScoutItem"
 
-const Listings = ({registryInfo, registry, alert, reload, marketContract, nftContract, stopLoading, setStats, isValid, provider }) => {
+const Listings = ({owned, setShowWallet, showWallet, registryInfo, registry, alert, reload, marketContract, nftContract, stopLoading, setStats, isValid, provider }) => {
 
+    const [id,setId] = useState("")
     const [listed, setListed] = useState([])
     const [prices,setPrices] = useState([])
     const [metaData,setMetaData] = useState([])
@@ -124,23 +126,32 @@ const Listings = ({registryInfo, registry, alert, reload, marketContract, nftCon
         setUpdateComplete(false)
         getListings()
     }, [isValid,provider])
+
+    useEffect(() => {
+        console.log(owned)
+    }, [owned])
+    
     
 
     return( 
         <>
         <AdminModal registryInfo={registryInfo} registry={registry} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} adminModal={adminModal} setAdminModal={setAdminModal}/>
         <BuyModal metaType={metaType} alert={alert} reload={reload} listed={listed} marketContract={marketContract} nftContract={nftContract} provider={provider} price={prices[parseInt(buyCrosshair)]} metaData={metaData[parseInt(buyCrosshair)]} buyModal={buyModal} setBuyModal={setBuyModal} id={parseInt(buyCrosshair)}/>
-        <ListingModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setListingModal={setListingModal} listingModal={listingModal} />
+        <ListingModal id={id} setId={setId} metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setListingModal={setListingModal} listingModal={listingModal} />
         <DelistingModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setDelistingModal={setDelistingModal} delistingModal={delistingModal} />
         <LiquidateModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setLiquidateModal={setLiquidateModal} liquidateModal={liquidateModal} />
         <div className={styles.listings}>
-        <MarketControlz nftContract={nftContract} provider={provider} owner={owner} delistingModal={delistingModal} setDelistingModal={setDelistingModal} setListingModal={setListingModal} listingModal={listingModal} liquidateModal={liquidateModal} setLiquidateModal={setLiquidateModal} adminModal={adminModal} setAdminModal={setAdminModal} />
+        <MarketControlz setShowWallet={setShowWallet} showWallet={showWallet} nftContract={nftContract} provider={provider} owner={owner} delistingModal={delistingModal} setDelistingModal={setDelistingModal} setListingModal={setListingModal} listingModal={listingModal} liquidateModal={liquidateModal} setLiquidateModal={setLiquidateModal} adminModal={adminModal} setAdminModal={setAdminModal} />
         <div className={styles.listingCont}>
-        {sortedListings.map(item => (
+        {!showWallet ? sortedListings.map(item => (
             <div onClick={() => { setBuyCrosshair(item.index); setBuyModal(!buyModal) }} key={item.index}>
                 <Item metaType={metaType} id={item.id} price={item.price} metaData={item.metaData} />
             </div>
-        ))}
+        )):
+        owned.map((i)=>{
+            return <BlockScoutItem setListingModal={setListingModal} listingModal={listingModal} setId={setId} i={i} />
+        })
+        }
         {listed.length === 0 && <div className={styles.noListings}>No listings!</div>}
         </div>
         </div>

@@ -10,17 +10,15 @@ import { Address } from "viem"
 import delay from "@/functions/delay"
 
 
-const ListingModal = ({metaType,alert,reload,setListingModal,listingModal,provider,nftContract,marketContract}) => {
+const ListingModal = ({id, setId, metaType,alert,reload,setListingModal,listingModal,provider,nftContract,marketContract}) => {
 
     // status[0]Exists status[1]owned status[2]Approved
     const [status,setStatus] = useState([])
-
-    const [id,setId] = useState("")
     const [price,setPrice] = useState("")
     const [errorMessage, setErrorMessage] = useState("");
     const [css0,setCss0] = useState("hidden")
     const [css1,setCss1] = useState("hidden")
-    const [image,setImage] =  useState(<FontAwesomeIcon icon="fa-regular fa-image" />)
+    const [image,setImage] = useState(<FontAwesomeIcon icon="fa-regular fa-image" />)
 
     const debouncedID = useDebounce(id, 400);
 
