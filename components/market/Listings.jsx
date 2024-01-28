@@ -148,8 +148,8 @@ const Listings = ({owned, setShowWallet, showWallet, registryInfo, registry, ale
                 <Item metaType={metaType} id={item.id} price={item.price} metaData={item.metaData} />
             </div>
         )):
-        owned.map((i)=>{
-            return <BlockScoutItem setListingModal={setListingModal} listingModal={listingModal} setId={setId} i={i} />
+        owned.map((i,index)=>{
+            return <div key={index}><BlockScoutItem setListingModal={setListingModal} listingModal={listingModal} setId={setId} i={i} /></div>
         })
         }
         {listed.length === 0 && <div className={styles.noListings}>No listings!</div>}
