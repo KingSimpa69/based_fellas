@@ -11,7 +11,7 @@ import LiquidateModal from "./LiquidateModal"
 import AdminModal from "./AdminModal"
 import BlockScoutItem from "./BlockScoutItem"
 
-const Listings = ({owned, setShowWallet, showWallet, registryInfo, registry, alert, reload, marketContract, nftContract, stopLoading, setStats, isValid, provider }) => {
+const Listings = ({setWriting, owned, setShowWallet, showWallet, registryInfo, registry, alert, reload, marketContract, nftContract, stopLoading, setStats, isValid, provider }) => {
 
     const [id,setId] = useState("")
     const [listed, setListed] = useState([])
@@ -135,11 +135,11 @@ const Listings = ({owned, setShowWallet, showWallet, registryInfo, registry, ale
 
     return( 
         <>
-        <AdminModal registryInfo={registryInfo} registry={registry} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} adminModal={adminModal} setAdminModal={setAdminModal}/>
-        <BuyModal metaType={metaType} alert={alert} reload={reload} listed={listed} marketContract={marketContract} nftContract={nftContract} provider={provider} price={prices[parseInt(buyCrosshair)]} metaData={metaData[parseInt(buyCrosshair)]} buyModal={buyModal} setBuyModal={setBuyModal} id={parseInt(buyCrosshair)}/>
-        <ListingModal id={id} setId={setId} metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setListingModal={setListingModal} listingModal={listingModal} />
-        <DelistingModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setDelistingModal={setDelistingModal} delistingModal={delistingModal} />
-        <LiquidateModal metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setLiquidateModal={setLiquidateModal} liquidateModal={liquidateModal} />
+        <AdminModal setWriting={setWriting} registryInfo={registryInfo} registry={registry} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} adminModal={adminModal} setAdminModal={setAdminModal}/>
+        <BuyModal setWriting={setWriting} metaType={metaType} alert={alert} reload={reload} listed={listed} marketContract={marketContract} nftContract={nftContract} provider={provider} price={prices[parseInt(buyCrosshair)]} metaData={metaData[parseInt(buyCrosshair)]} buyModal={buyModal} setBuyModal={setBuyModal} id={parseInt(buyCrosshair)}/>
+        <ListingModal setWriting={setWriting} id={id} setId={setId} metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setListingModal={setListingModal} listingModal={listingModal} />
+        <DelistingModal setWriting={setWriting} metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setDelistingModal={setDelistingModal} delistingModal={delistingModal} />
+        <LiquidateModal setWriting={setWriting} metaType={metaType} alert={alert} reload={reload} marketContract={marketContract} nftContract={nftContract} provider={provider} setLiquidateModal={setLiquidateModal} liquidateModal={liquidateModal} />
         <div className={styles.listings}>
         <MarketControlz setShowWallet={setShowWallet} showWallet={showWallet} nftContract={nftContract} provider={provider} owner={owner} delistingModal={delistingModal} setDelistingModal={setDelistingModal} setListingModal={setListingModal} listingModal={listingModal} liquidateModal={liquidateModal} setLiquidateModal={setLiquidateModal} adminModal={adminModal} setAdminModal={setAdminModal} />
         <div className={styles.listingCont}>

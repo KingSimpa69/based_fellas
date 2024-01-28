@@ -9,7 +9,7 @@ import Spinner1 from "../Spinner1"
 import delay from "@/functions/delay"
 
 
-const LiquidateModal = ({metaType,alert,reload,setLiquidateModal,liquidateModal,provider,nftContract,marketContract}) => {
+const LiquidateModal = ({setWriting,metaType,alert,reload,setLiquidateModal,liquidateModal,provider,nftContract,marketContract}) => {
 
     // status[0]Exists status[1]owned status[2]Approved
     const [status,setStatus] = useState([])
@@ -95,7 +95,9 @@ const LiquidateModal = ({metaType,alert,reload,setLiquidateModal,liquidateModal,
             let txLog = {}
             const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
             const tx = await nft.approve(marketContract,id)
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = nft.interface.parseLog(log))
@@ -112,7 +114,9 @@ const LiquidateModal = ({metaType,alert,reload,setLiquidateModal,liquidateModal,
             let txLog = {}
             const market = new ethers.Contract(marketContract, ABI.market, provider);
             const tx = await market.liquidate(id)
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = market.interface.parseLog(log))

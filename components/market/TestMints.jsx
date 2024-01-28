@@ -4,7 +4,7 @@ import { ethers } from "ethers"
 import { useEthersSigner } from "@/hooks/ethers"
 import ABI from "@/functions/abi.json"
 
-const TestMints = ({alert}) => {
+const TestMints = ({setWriting,alert}) => {
 
     const provider = useEthersSigner()
     const [supplies, setSupplies] = useState([0,0,0])
@@ -52,7 +52,9 @@ const TestMints = ({alert}) => {
             e === 1 ? await nft.publicSaleMint(1,{value:mintPrice}) :
             e === 2 ? alert('error', "Need ABI from Apex") : null
             e === 0 && alert("success","Minting...")
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             response && alert("success","Success!")
         } catch (error) {
             console.log(error)

@@ -7,7 +7,7 @@ import delay from "@/functions/delay"
 import REGISTRY from "@/registry.json"
 
 
-const AdminModal = ({registryInfo, registry,provider,alert,setAdminModal,adminModal,marketContract,nftContract, reload}) => {
+const AdminModal = ({setWriting,registryInfo, registry,provider,alert,setAdminModal,adminModal,marketContract,nftContract, reload}) => {
 
     const [css0,setCss0] = useState("hidden")
     const [css1,setCss1] = useState("")
@@ -66,7 +66,9 @@ const AdminModal = ({registryInfo, registry,provider,alert,setAdminModal,adminMo
         try{
             const market = new ethers.Contract(marketContract, ABI.market, provider);
             const tx = await market.setTax(target,addy,tax)
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             response && alert("success","Tax set")
         } catch (error) {
             alert("error","Error")
@@ -78,7 +80,9 @@ const AdminModal = ({registryInfo, registry,provider,alert,setAdminModal,adminMo
         try{
             const market = new ethers.Contract(marketContract, ABI.market, provider);
             const tx = await market.transferOwnership(addy)
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             response && alert("success","Ownership transfered")
             setAdminModal(!adminModal)
             await delay(450)
@@ -104,7 +108,9 @@ const AdminModal = ({registryInfo, registry,provider,alert,setAdminModal,adminMo
             const reg = new ethers.Contract(regContract, ABI.mreg, provider);
             const regId = await reg.getMarketIdByContract(marketContract)
             const tx = await reg[regFucktion](parseInt(regId),value)
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             response && alert("success",`${key} updated!`)
             await delay(450)
             reload()
@@ -121,7 +127,9 @@ const AdminModal = ({registryInfo, registry,provider,alert,setAdminModal,adminMo
             const reg = new ethers.Contract(regContract, ABI.mreg, provider);
             const regFee = await reg.registryFee()
             const tx = await reg.addMarket(nftContract,marketContract,{value:parseInt(regFee).toString()})
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             response && alert("success","Added to the registry!")
             await delay(450)
             reload()

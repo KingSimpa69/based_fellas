@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 
-const Market = ({goodToTx,alert}) => {
+const Market = ({goodToTx,alert,setWriting}) => {
 
     const [owned,setOwned] = useState([])
     const [stats,setStats] = useState({})
@@ -67,7 +67,7 @@ const Market = ({goodToTx,alert}) => {
                         setRegistry(true)
                         setMarketContract(marketAddress)
                         setNftContract(nftContract)
-                        setProjectName(marketData[2]+ " Market")
+                        setProjectName(marketData[2] === "" ? projectName + " Market" : marketData[2]+ " Market")
                         setIsValid(true)
                         return
                     } else {
@@ -151,7 +151,7 @@ const Market = ({goodToTx,alert}) => {
             }
             <div className={loading || !isValid ? styles.hidden : styles.marketWrap }>
                 <StatBox stats={stats} />
-                <Listings owned={owned} setShowWallet={setShowWallet} showWallet={showWallet} registry={registry} registryInfo={registryInfo} width={width} alert={alert} reload={reload} stats={stats} provider={provider} isValid={isValid} setStats={setStats} stopLoading={stopLoading} projectName={projectName} marketContract={marketContract} nftContract={nftContract} />
+                <Listings setWriting={setWriting} owned={owned} setShowWallet={setShowWallet} showWallet={showWallet} registry={registry} registryInfo={registryInfo} width={width} alert={alert} reload={reload} stats={stats} provider={provider} isValid={isValid} setStats={setStats} stopLoading={stopLoading} projectName={projectName} marketContract={marketContract} nftContract={nftContract} />
             </div>
         </div>
     )

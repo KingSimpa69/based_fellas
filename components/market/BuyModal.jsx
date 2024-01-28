@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { shortenEthAddy } from "@/functions/shortenEthAddy"
 import delay from "@/functions/delay"
 
-const BuyModal = ({metaType,alert,reload,marketContract,nftContract,id,buyModal,setBuyModal,metaData,price,provider,listed}) => {
+const BuyModal = ({setWriting,metaType,alert,reload,marketContract,nftContract,id,buyModal,setBuyModal,metaData,price,provider,listed}) => {
 
 
     const [owner,setOwner] = useState("ANON")
@@ -18,7 +18,9 @@ const BuyModal = ({metaType,alert,reload,marketContract,nftContract,id,buyModal,
             let txLog = {}
             const market = new ethers.Contract(marketContract, ABI.market, provider);
             const tx = await market.buy(listed[i],{value:price})
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = market.interface.parseLog(log))

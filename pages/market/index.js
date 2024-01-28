@@ -7,7 +7,7 @@ import { useRouter } from "next/router"
 import delay from "@/functions/delay"
 import { useState, useEffect } from "react"
 
-const Market = ({setGlobalCSS0, setGlobalCSS1, goodToTx, alert}) => {
+const Market = ({setWriting, setGlobalCSS0, setGlobalCSS1, goodToTx, alert}) => {
 
     const router = useRouter()
     const pathRegex = /\/([^\/]+)\//;
@@ -40,8 +40,8 @@ useEffect(()=>{
             <HorizontalRule />
                 <h1 className={styles.h1}>Market</h1>
             <HorizontalRule />
-            <SelectProject alert={alert} chain={chain} goodToTx={goodToTx} changePage={changePage} />
-            {showTestMints && <TestMints alert={alert}/>}
+            <SelectProject setWriting={setWriting} alert={alert} chain={chain} goodToTx={goodToTx} changePage={changePage} />
+            {showTestMints && <TestMints setWriting={setWriting} alert={alert}/>}
         </div>
     )
 }

@@ -12,6 +12,7 @@ import { faChevronDown, faQuestionCircle, faGlobe } from '@fortawesome/free-soli
 import WAGMI from '@/components/web3/WAGMI';
 import Alert from '@/components/Alert';
 import { useWindowSize } from "@/hooks/useWindowSize";
+import TXConfirming from '@/components/TxConfirming';
 library.add(faTwitter,faGithub,faDiscord,faLinkedin,faCopy,faPaperPlane,faIdCard,faImage,faChevronDown,faQuestionCircle,faPaste,faGlobe,faXTwitter,faTelegram)
 config.autoAddCss = false;
 
@@ -25,6 +26,7 @@ export default function App({ Component, pageProps }) {
   const [css1,setCss1] = useState("")
   const [alerts,setAlerts] = useState([])
   const [goodToTx,setGoodToTx] = useState({connected:false,network:false})
+  const [writing,setWriting] = useState(false)
 
   const alert = (type,message) => {
     setAlerts(alerts=>[...alerts,{
@@ -41,11 +43,12 @@ export default function App({ Component, pageProps }) {
   <div className={'app'}>
     <WAGMI>
       <Header/>
+      <TXConfirming writing={writing} />
       <Alert alerts={alerts} setAlerts={setAlerts} />
       <Menu goodGood={goodGood} menu={menu} toggleMenu={toggleMenu} setGlobalCSS0={setCss0} setGlobalCSS1={setCss1}/>
       <NavBar menu={menu} toggleMenu={toggleMenu} />
       <div className={`${css0} ${css1}`}>
-      <Component config={config} goodToTx={goodToTx} alert={alert} windowSize={windowSize} {...pageProps} setGlobalCSS0={setCss0} setGlobalCSS1={setCss1} />
+      <Component setWriting={setWriting} config={config} goodToTx={goodToTx} alert={alert} windowSize={windowSize} {...pageProps} setGlobalCSS0={setCss0} setGlobalCSS1={setCss1} />
       <Footer />
       </div>
     </WAGMI>

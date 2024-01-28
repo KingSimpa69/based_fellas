@@ -10,7 +10,7 @@ import { Address } from "viem"
 import delay from "@/functions/delay"
 
 
-const ListingModal = ({id, setId, metaType,alert,reload,setListingModal,listingModal,provider,nftContract,marketContract}) => {
+const ListingModal = ({setWriting, id, setId, metaType,alert,reload,setListingModal,listingModal,provider,nftContract,marketContract}) => {
 
     // status[0]Exists status[1]owned status[2]Approved
     const [status,setStatus] = useState([])
@@ -90,7 +90,9 @@ const ListingModal = ({id, setId, metaType,alert,reload,setListingModal,listingM
             let txLog = {}
             const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
             const tx = await nft.approve(marketContract,id)
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = nft.interface.parseLog(log))
@@ -107,7 +109,9 @@ const ListingModal = ({id, setId, metaType,alert,reload,setListingModal,listingM
             let txLog = {}
             const market = new ethers.Contract(marketContract, ABI.market, provider);
             const tx = await market.list(id,parseEther(price))
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = market.interface.parseLog(log))

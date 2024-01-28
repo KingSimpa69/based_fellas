@@ -8,7 +8,7 @@ import { parseEther } from "ethers"
 import Spinner1 from "../Spinner1"
 import delay from "@/functions/delay"
 
-const DelistingModal = ({metaType,alert,reload,setDelistingModal,delistingModal,provider,nftContract,marketContract}) => {
+const DelistingModal = ({setWriting,metaType,alert,reload,setDelistingModal,delistingModal,provider,nftContract,marketContract}) => {
 
     // status[0]Exists status[1]Listed status[2]Owned status[3]Approved
     const [status,setStatus] = useState([])
@@ -117,7 +117,9 @@ const DelistingModal = ({metaType,alert,reload,setDelistingModal,delistingModal,
             let txLog = {}
             const nft = new ethers.Contract(nftContract, ABI.fellas, provider);
             const tx = await nft.approve("0x0000000000000000000000000000000000000000",id)
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = nft.interface.parseLog(log))
@@ -134,7 +136,9 @@ const DelistingModal = ({metaType,alert,reload,setDelistingModal,delistingModal,
             let txLog = {}
             const market = new ethers.Contract(marketContract, ABI.market, provider);
             const tx = await market.delist(id)
+            setWriting(true)
             const response = await tx.wait()
+            setWriting(false)
             const logs = await provider.provider.getLogs({blockHash:response.blockHash})
             for (const log of logs) {
                 log.transactionHash === response.hash && (txLog = market.interface.parseLog(log))

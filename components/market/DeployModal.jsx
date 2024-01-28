@@ -9,7 +9,7 @@ import delay from "@/functions/delay"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
-const DeployModal = ({router,alert,deployModal,setDeployModal}) => {
+const DeployModal = ({router,alert,deployModal,setDeployModal,setWriting}) => {
 
     const provider = useEthersSigner()
     const [css0,setCss0] = useState("hidden")
@@ -25,7 +25,9 @@ const DeployModal = ({router,alert,deployModal,setDeployModal}) => {
         try{
             const contractFactory = new ethers.ContractFactory(ABI.market,BYTECODE.market,provider)
             const deployedContract = await contractFactory.deploy(projectName,smartContract,{value:5000000000000000});
+            setWriting(true)
             await deployedContract.waitForDeployment()
+            setWriting(false)
             alert("success","Market deployed")
             setDeployModal(!deployModal)
             await delay(450)
@@ -39,15 +41,18 @@ const DeployModal = ({router,alert,deployModal,setDeployModal}) => {
     useEffect(()=>{
         const getInfo = async () => {
             try{
-                const nft = new ethers.Contract(smartContract, ABI.fellas, provider);
+                const nft = new ethers.Contract(contract.toString().toLowerCase(), ABI.erc721, provider);
                 // Check if metadata string is valid (Thanks Vesper!)
                 try {
+                    console.log(contract)
                     const validURI = await nft.tokenURI(1);
+                    console.log(validURI)
                     if (validURI === "") {
                       setErrorMessage("Invalid metadata for this contract!");
                       return;
                     }
                 } catch (error) {
+                    console.log(error)
                   setErrorMessage("Invalid metadata for this contract!");
                   return;
                 }

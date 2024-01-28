@@ -7,7 +7,7 @@ import DeployModal from "./DeployModal"
 import { useRouter } from "next/router"
 import { useWindowSize } from "@/hooks/useWindowSize"
 
-const SelectProject = ({alert,chain,changePage,goodToTx}) => {
+const SelectProject = ({setWriting,alert,chain,changePage,goodToTx}) => {
 
     const { open } = useWeb3Modal()
     const [modalOpen,setModalOpen] = useState(false)
@@ -23,7 +23,7 @@ const SelectProject = ({alert,chain,changePage,goodToTx}) => {
 
     return(
         <>
-        <DeployModal router={router} alert={alert} deployModal={deployModal} setDeployModal={setDeployModal}/>
+        <DeployModal setWriting={setWriting} router={router} alert={alert} deployModal={deployModal} setDeployModal={setDeployModal}/>
             <SelectContractModal width={width} chain={chain} setModalOpen={setModalOpen} modalOpen={modalOpen} changePage={changePage} />
             <div className={styles.selectProjectConatiner}>
                 <div onClick={()=>(dynamicModalButton())} className={styles.selectProjectButton}>

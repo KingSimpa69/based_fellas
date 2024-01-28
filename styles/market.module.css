@@ -799,6 +799,23 @@
     font-family: righteous;
 }
 
+.verified {
+    border: 1px solid #00bbd4;
+    border-radius: 5px;
+    height:15px;
+    padding:3px;
+    font-family: inter;
+    font-weight: 300;
+    color:#00bbd4;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.projectName {
+    display:inline-flex;
+    align-items: center;
+}
+
 .ctc {
     background-color: #0000003a;
     font-family: coresans;
@@ -1000,6 +1017,20 @@
     font-family: kanit;
     font-size: 14px;
     color: #ffffff;
+}
+
+.volumeInList {
+    font-family: inter;
+    font-size: 14px;
+    margin-bottom: 2px;
+    display: inline-flex;
+    color:#ffffff;
+}
+
+.volumeInListValue {
+    margin-left: 2px;
+    font-family: coresans;
+    color:#ffffffbe;
 }
 
 @media only screen and (max-width: 768px) {
