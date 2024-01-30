@@ -21,7 +21,7 @@ const TXConfirming = ({writing}) => {
 
     return(
         <div className={`${css0} ${css1}`}>
-            <div className={"txContainer"}><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><h1>Writing To<br/>Blockchain</h1></div>
+            <div className={"txContainer"}><div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><h1>Writing To<br/>Blockchain</h1></div>
         </div>
     )
 }

@@ -6,6 +6,7 @@ import { useNetwork } from "wagmi"
 import { useRouter } from "next/router"
 import delay from "@/functions/delay"
 import { useState, useEffect } from "react"
+import MarketDataTable from "@/components/market/MarketDataTable"
 
 const Market = ({setWriting, setGlobalCSS0, setGlobalCSS1, goodToTx, alert}) => {
 
@@ -42,6 +43,7 @@ useEffect(()=>{
             <HorizontalRule />
             <SelectProject setWriting={setWriting} alert={alert} chain={chain} goodToTx={goodToTx} changePage={changePage} />
             {showTestMints && <TestMints setWriting={setWriting} alert={alert}/>}
+            <MarketDataTable changePage={changePage} />
         </div>
     )
 }

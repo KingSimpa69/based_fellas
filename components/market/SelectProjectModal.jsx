@@ -28,7 +28,7 @@ const SelectContractModal = ({width,chain,modalOpen,setModalOpen,changePage}) =>
     }
 
     function checkIfVerified(market) {
-        return markets.find(e => e.contracts.market === market);
+        return markets.find(e => e.contracts.market.toString().toLowerCase() === market.toString().toLowerCase());
     }
 
     const handleSearch = async (e) => {
