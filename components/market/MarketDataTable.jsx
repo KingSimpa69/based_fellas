@@ -77,7 +77,7 @@ const MarketDataTable = ({changePage}) => {
                         <tr>
                             <th>Market</th>
                             <th>Volume</th>
-                            <th>Change</th>
+                            <th>Vol Change</th>
                             <th>Floor</th>
                         </tr>
                     </thead>
@@ -86,7 +86,7 @@ const MarketDataTable = ({changePage}) => {
                             item.volChange !== "0" && item.volChange !== null &&(
                                 <tr onClick={()=>changePage(`/market/${marketContracts[index]}`)} key={index}>
                                     <td>{ethers.isAddress(marketContracts[index]) ? shortenEthAddy(marketContracts[index]) : marketContracts[index]}</td>
-                                    <td>{formatETH(parseFloat(item.mostRecent)/10**18)} ETH</td>
+                                    <td>{formatETH(parseFloat(item.mostRecent-item.hourAgo)/10**18)} ETH</td>
                                     <td>{parseFloat(item.volChange).toFixed(1)}%</td>
                                     <td>{formatETH(parseFloat(item.floorPrice)/10**18)} ETH</td>
                                 </tr>
